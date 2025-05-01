@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+.blabla {
+  border: 1px solid green;
+  @apply text-2xl text-red-500;
+}
