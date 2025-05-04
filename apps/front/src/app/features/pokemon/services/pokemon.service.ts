@@ -14,7 +14,10 @@ export class PokemonService {
   constructor(private httpClient: HttpClient) {}
 
   getPokemons({ limit = 10, offset = 0 }: GetPokemonsParamsI) {
-    const url = new URL(`/api/v2/pokemon?limit=${limit}&offset=${offset}`, environment.pokeAPI);
+    const url = new URL(
+      `/api/v2/pokemon?limit=${limit}&offset=${offset}`,
+      environment.pokeAPI,
+    );
     return this.httpClient.get<PokeAPIResponseI<PokemonInListI>>(
       url.toString(),
     );
@@ -22,6 +25,11 @@ export class PokemonService {
 
   getPokemonById(id: number) {
     const url = new URL(`/api/v2/pokemon/${id}`, environment.pokeAPI);
+    return this.httpClient.get<BasePokemonI>(url.toString());
+  }
+
+  getPokemonSpeciesById(id: number) {
+    const url = new URL(`/api/v2/pokemon-species/${id}`, environment.pokeAPI);
     return this.httpClient.get<BasePokemonI>(url.toString());
   }
 }

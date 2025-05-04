@@ -1,8 +1,3 @@
-import type {
-  PokeAPIResponseI,
-  PokemonInListI,
-} from '@features/pokemon/types/api';
-
 export const mockPokemonData = {
   abilities: [
     {

@@ -3,7 +3,6 @@ import {
   effect,
   ElementRef,
   input,
-  OnInit,
   output,
   viewChild,
 } from '@angular/core';
@@ -32,17 +31,27 @@ export class PokemonListComponent {
 
   private setupObserver() {
     const watcher = this.watcherRef();
+
     if (!watcher) return;
+
     const isIntersecting = (entry: IntersectionObserverEntry) => {
       return entry.isIntersecting || entry.intersectionRatio > 0;
     };
 
     const handleIntersect = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (isIntersecting(entry)) {
-          this.onScrollEnd.emit();
-        }
-      });
+      // if (entries[0].isIntersecting) {
+      //   this.onScrollEnd.emit();
+      // }
+
+      if (isIntersecting(entries[0])) {
+        this.onScrollEnd.emit();
+      }
+
+      // entries.forEach((entry) => {
+      //   if (isIntersecting(entry)) {
+      //     this.onScrollEnd.emit();
+      //   }
+      // });
     };
 
     this.intersectionObserver = new IntersectionObserver(handleIntersect);

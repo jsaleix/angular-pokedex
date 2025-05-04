@@ -2,16 +2,19 @@
   @if (pokemons().length === 0) {
     <p>There is no pokemon to show</p>
   } @else {
-    <div class="flex flex-col w-full">
+    <div class="flex flex-col w-full" id="pkm-list-container">
       <div
-        id="pkm-list-container"
         class="w-full h-full overflow-hidden grid grid-cols-3 gap-4 md:grid-cols-4 lg:md:grid-cols-6"
       >
         @for (pokemon of pokemons(); track pokemon.name) {
           <app-pokemon-list-item [pokemon]="pokemon" />
         }
       </div>
-      <div id="pkm-list-intersection-watcher" class="w-full" #watcher></div>
+      <div
+        id="pkm-list-intersection-watcher"
+        class="w-full bottom-0"
+        #watcher
+      ></div>
     </div>
   }
 </div>

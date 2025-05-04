@@ -1,1 +1,16 @@
-<p>pokemon-card works!</p>
+@let pokemon = this.pokemon();
+@let species = this.species();
+@if (pokemon && species) {
+  <article class="rounded ring-1 ring-black h-full w-full max-w-80 overflow-hidden p-5">
+    <header>
+      <h1 class="text-4xl uppercase">{{ pokemon.name }}</h1>
+    </header>
+    <div class="z-1 w-full flex justify-center items-center">
+      <img
+        [src]="pokemon.sprites.other['official-artwork'].front_default"
+        alt="{{ pokemon.name }}"
+        class="object-contain w-full h-full drag-none"
+      />
+    </div>
+  </article>
+}

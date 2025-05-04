@@ -2,5 +2,5 @@
 
 :host {
   font-family: "emerald";
-  @apply w-full h-full flex grow;
+  @apply flex h-96;
 }
