@@ -10,6 +10,7 @@ const config: StorybookConfig = {
       },
     },
     '@storybook/addon-interactions',
+    'storybook-addon-angular-router',
   ],
   framework: {
     name: '@storybook/angular',
