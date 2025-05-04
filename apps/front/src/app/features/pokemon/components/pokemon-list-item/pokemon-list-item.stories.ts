@@ -4,6 +4,7 @@ import {
   type Meta,
   type StoryObj,
 } from '@storybook/angular';
+
 import { PokemonListItemComponent } from './pokemon-list-item.component';
 import { MockPokemonList } from '@features/pokemon/services/data/pokemons';
 

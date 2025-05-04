@@ -5,8 +5,6 @@ import { PokemonService } from '@features/pokemon/services/pokemon.service';
 import { PokemonListComponent } from '@features/pokemon/components/pokemon-list/pokemon-list.component';
 import { PokemonInListI } from '@features/pokemon/types/api';
 
-const LIMIT = 30;
-
 @Component({
   selector: 'app-pokedex',
   imports: [PokemonListComponent],
@@ -25,12 +23,13 @@ export class PokedexComponent {
 
   loadNext() {
     if (this.sub) this.sub.unsubscribe();
+    const limit = 30;
 
     this.sub = this.pokemonService
-      .getPokemons({ limit: 30, offset: this.offset() })
+      .getPokemons({ limit, offset: this.offset() })
       .subscribe((data) => {
         this.pokemons.update((current) => [...current, ...data.results]);
-        this.offset.update((v) => v + LIMIT);
+        this.offset.update((v) => v + limit);
       });
   }
 

@@ -39,7 +39,9 @@ export class PokemonListComponent {
 
     const handleIntersect = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
-        if (isIntersecting(entry)) this.onScrollEnd.emit();
+        if (isIntersecting(entry)) {
+          this.onScrollEnd.emit();
+        }
       });
     };
 

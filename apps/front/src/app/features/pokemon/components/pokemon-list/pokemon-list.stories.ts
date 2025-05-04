@@ -1,8 +1,6 @@
-import {
-  moduleMetadata,
-  type Meta,
-  type StoryObj,
-} from '@storybook/angular';
+import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
+import { fn } from '@storybook/test';
+
 import { PokemonListComponent } from './pokemon-list.component';
 import { MockPokemonList } from '@features/pokemon/services/data/pokemons';
 
@@ -15,12 +13,9 @@ const meta: Meta<PokemonListComponent> = {
     moduleMetadata({
       imports: [],
     }),
-    // componentWrapperDecorator(
-    //   (story) => `<div class="w-96 h-96">${story}</div>`,
-    // ),
   ],
   tags: [],
-  args: {},
+  args: { onScrollEnd: fn() },
 };
 
 export default meta;
