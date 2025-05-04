@@ -3,7 +3,15 @@
     class="aspect-square flex flex-col gap-2 items-center justify-center relative hover:bg-blue-500/10 active:bg-blue-500/20 select-none"
   >
     <div class="z-1 h-30 w-30 flex justify-center items-center">
-      <img [src]="pkmImage()" class="object-contain w-full h-full drag-none" />
+      @if (imgFailed()) {
+        <img src="assets/imgs/missing_sprite.png" class="object-contain w-full h-full drag-none" />
+      } @else {
+        <img
+          (error)="this.imgFailed.set(true)"
+          [src]="pkmImage()"
+          class="object-contain w-full h-full drag-none"
+        />
+      }
     </div>
     <span
       class="z-0 absolute top-1 md:top-5 left-2 md:left-9 text-4xl font-bold text-red-500"

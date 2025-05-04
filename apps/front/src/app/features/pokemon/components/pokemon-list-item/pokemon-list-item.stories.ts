@@ -1,4 +1,9 @@
-import { componentWrapperDecorator, moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
+import {
+  componentWrapperDecorator,
+  moduleMetadata,
+  type Meta,
+  type StoryObj,
+} from '@storybook/angular';
 import { PokemonListItemComponent } from './pokemon-list-item.component';
 import { MockPokemonList } from '@features/pokemon/services/data/pokemons';
 
@@ -11,7 +16,9 @@ const meta: Meta<PokemonListItemComponent> = {
     moduleMetadata({
       imports: [],
     }),
-    componentWrapperDecorator((story) => `<div class="w-96 h-96">${story}</div>`)
+    componentWrapperDecorator(
+      (story) => `<div class="w-96 h-96">${story}</div>`,
+    ),
   ],
   tags: [],
   args: {},
@@ -20,6 +27,14 @@ const meta: Meta<PokemonListItemComponent> = {
 export default meta;
 type Story = StoryObj<PokemonListItemComponent>;
 
-export const PokemonListItem: Story = {
+export const Regular: Story = {
   args: { pokemon: data.results[0] },
+};
+
+const invalidData = {
+  ...data.results[1],
+  url: 'https://pokeapi.co/api/v2/pokemon/???/',
+};
+export const WrongImage: Story = {
+  args: { pokemon: invalidData },
 };

@@ -5,7 +5,7 @@ import { BasePokemonI, PokeAPIResponseI, PokemonInListI } from '../types/api';
 
 interface GetPokemonsParamsI {
   limit?: number;
-  skip?: number;
+  offset?: number;
 }
 @Injectable({
   providedIn: 'root',
@@ -13,8 +13,8 @@ interface GetPokemonsParamsI {
 export class PokemonService {
   constructor(private httpClient: HttpClient) {}
 
-  getPokemons({ limit = 10, skip = 0 }: GetPokemonsParamsI) {
-    const url = new URL(`/api/v2/pokemon?limit=${limit}`, environment.pokeAPI);
+  getPokemons({ limit = 10, offset = 0 }: GetPokemonsParamsI) {
+    const url = new URL(`/api/v2/pokemon?limit=${limit}&offset=${offset}`, environment.pokeAPI);
     return this.httpClient.get<PokeAPIResponseI<PokemonInListI>>(
       url.toString(),
     );
