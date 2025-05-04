@@ -1,4 +1,10 @@
 @import "tailwindcss";
+@import "tailwindcss-animated";
+
+@font-face {
+  font-family: "emerald";
+  src: url("/assets/fonts/pokemon-emerald.otf");
+}
 
 body {
   height: 100vh;
@@ -7,4 +13,15 @@ body {
   flex-direction: column;
   overflow-x: hidden;
   overflow-y: auto !important;
+  font-family: "emerald";
+
+  @apply text-2xl;
+}
+
+@utility drag-none {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-select: none;
 }

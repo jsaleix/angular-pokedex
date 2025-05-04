@@ -4,12 +4,17 @@ import { PageNotFoundComponent } from '@features/general/page-not-found/page-not
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: '**', component: PageNotFoundComponent },
   {
     path: 'about',
     loadComponent: () =>
       import('@features/general/about/about.component').then(
-        (m) => m.AboutComponent
+        (m) => m.AboutComponent,
       ),
   },
+  {
+    path: 'pokedex',
+    loadChildren: () =>
+      import('@features/pokemon/routes').then((m) => m.routes),
+  },
+  { path: '**', component: PageNotFoundComponent },
 ];

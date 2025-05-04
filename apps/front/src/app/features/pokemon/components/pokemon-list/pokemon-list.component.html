@@ -1,0 +1,13 @@
+<div class="w-full h-full flex">
+  @if (pokemons().length === 0) {
+    <p>There is no pokemon to show</p>
+  } @else {
+    <div
+      class="w-full h-full overflow-hidden grid grid-cols-3 gap-4 md:grid-cols-4 lg:md:grid-cols-6"
+    >
+      @for (pokemon of pokemons(); track pokemon.name) {
+        <app-pokemon-list-item [pokemon]="pokemon" />
+      }
+    </div>
+  }
+</div>

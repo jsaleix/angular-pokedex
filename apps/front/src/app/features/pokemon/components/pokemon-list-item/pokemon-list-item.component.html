@@ -1,0 +1,15 @@
+<a [routerLink]="['/pokedex', id()]">
+  <article
+    class="aspect-square flex flex-col gap-2 items-center justify-center relative hover:bg-blue-500/10 active:bg-blue-500/20 select-none"
+  >
+    <div class="z-1 h-30 w-30 flex justify-center items-center">
+      <img [src]="pkmImage()" class="object-contain w-full h-full drag-none" />
+    </div>
+    <span
+      class="z-0 absolute top-1 md:top-5 left-2 md:left-9 text-4xl font-bold text-red-500"
+    >
+      {{ id() | dexId }}
+    </span>
+    <h3 class="uppercase text-2xl">{{ pokemon().name }}</h3>
+  </article>
+</a>
