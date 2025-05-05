@@ -38,6 +38,7 @@ type Sprites = {
   };
 } & Record<string, unknown>;
 export interface PokemonI {
+  id: number;
   height: number;
   weight: number;
   name: string;

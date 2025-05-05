@@ -16,7 +16,7 @@ const meta: Meta<PokemonCardComponent> = {
   component: PokemonCardComponent,
   decorators: [
     componentWrapperDecorator(
-      (story) => `<div style="height: 70vh; width: 80vw;">${story}</div>`,
+      (story) => `<div style="max-height: 80vh; width: 80vw;">${story}</div>`,
     ),
   ],
   tags: [],
