@@ -11,7 +11,7 @@ import { MagnifyingGlassIconComponent } from '@shared/components/icons/magnifyin
 export class SearchDexidComponent {
   initialValue = input<number>();
   startAtModel = model(0);
-  onClick = output<number>();
+  onIdChange = output<number>();
 
   ngOnInit() {
     const initialValue = this.initialValue();
@@ -21,6 +21,6 @@ export class SearchDexidComponent {
   }
 
   onKeyDown(event: KeyboardEvent) {
-    if (event.key === 'Enter') this.onClick.emit(this.startAtModel());
+    if (event.key === 'Enter') this.onIdChange.emit(this.startAtModel());
   }
 }

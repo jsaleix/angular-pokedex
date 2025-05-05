@@ -18,7 +18,9 @@ const config: StorybookConfig = {
   },
   staticDirs: ['../public'],
   webpackFinal: (config) => {
-    config.module?.rules?.push({
+    if (!config.module?.rules) return config;
+
+    config.module.rules.push({
       test: /\.css$/,
       exclude: /node_modules/,
       use: [
@@ -32,6 +34,7 @@ const config: StorybookConfig = {
         },
       ],
     });
+
     return config;
   },
 };
