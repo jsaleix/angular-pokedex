@@ -1,4 +1,4 @@
-import { Component, model, output } from '@angular/core';
+import { Component, input, model, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -8,8 +8,16 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './search-dexid.component.css',
 })
 export class SearchDexidComponent {
+  initialValue = input<number>();
   startAtModel = model(0);
   onClick = output<number>();
+
+  ngOnInit() {
+    const initialValue = this.initialValue();
+    if (initialValue) {
+      this.startAtModel.set(initialValue);
+    }
+  }
 
   onKeyDown(event: KeyboardEvent) {
     if (event.key === 'Enter') this.onClick.emit(this.startAtModel());

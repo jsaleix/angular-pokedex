@@ -1,6 +1,9 @@
 <div class="w-full">
   <div class="flex flex-col w-full">
-    <app-search-dexid (onClick)="this.handleOffsetChange($event)" />
+    <app-search-dexid
+      (onClick)="this.handleOffsetChange($event)"
+      [initialValue]="this.offset()"
+    />
   </div>
 
   <div class="w-full container mx-auto flex flex-col">
