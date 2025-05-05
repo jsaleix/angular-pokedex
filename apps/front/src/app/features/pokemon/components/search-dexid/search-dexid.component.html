@@ -1,21 +1,36 @@
 <div class="w-full bg-slate-800 py-10">
-  <div class="w-full container mx-auto flex flex-col gap-3 px-5 md:px-0">
-    <h2 class="text-3xl text-white select-none">Start after</h2>
-    <div class="w-full flex items-center gap-3 h-11">
-      <input
-        type="number"
-        placeholder="001"
-        [(ngModel)]="this.startAtModel"
-        (keypress)="this.onKeyDown($event)"
-        min="0"
-        class="bg-white h-full w-5/6 outline-none rounded-md p-2 placeholder:text-gray-500"
-      />
-      <button
-        class="h-full w-fit px-5 rounded-md bg-red-600 hover:bg-red-700 active:bg-red-700 cursor-pointer"
-        (click)="this.onClick.emit(this.startAtModel())"
-      >
-        <app-magnifying-glass-icon css="stroke-white " />
-      </button>
+  <div
+    class="w-full container mx-auto px-5 md:px-0 flex flex-col md:flex-row justify-center items-center gap-5"
+  >
+    <div class="w-full md:w-2/4 flex flex-col gap-2">
+      <h2 class="text-3xl text-white select-none">Start after</h2>
+      <div class="w-full flex items-center gap-3 h-11">
+        <input
+          type="number"
+          placeholder="001"
+          [(ngModel)]="this.startAtModel"
+          (keypress)="this.onKeyDown($event)"
+          min="0"
+          class="bg-white h-full w-full outline-none rounded-md p-2 px-5 placeholder:text-gray-500"
+        />
+        <button
+          class="h-full w-fit px-5 rounded-md bg-red-600 hover:bg-red-700 active:bg-red-700 cursor-pointer"
+          (click)="this.onClick.emit(this.startAtModel())"
+        >
+          <app-magnifying-glass-icon css="stroke-white " />
+        </button>
+      </div>
+      <p class="text-gray-300 text-lg select-none">
+        Search for a Pokémon by its National Pokedex number.
+      </p>
+    </div>
+
+    <div
+      class="bg-emerald-500 p-5 rounded-xl shadow-2xl w-fit md:max-w-2/5 mddd:w-4/5"
+    >
+      <p class="text-slate-200 text-xl leading-5 text-shadow-md select-none">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+      </p>
     </div>
   </div>
 </div>
