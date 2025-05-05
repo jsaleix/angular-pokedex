@@ -4,10 +4,11 @@ import { Subscription } from 'rxjs';
 import { PokemonService } from '@features/pokemon/services/pokemon.service';
 import { PokemonListComponent } from '@features/pokemon/components/pokemon-list/pokemon-list.component';
 import { PokemonInListI } from '@features/pokemon/types/api';
+import { SearchDexidComponent } from '@features/pokemon/components/search-dexid/search-dexid.component';
 
 @Component({
   selector: 'app-pokedex',
-  imports: [PokemonListComponent],
+  imports: [PokemonListComponent, SearchDexidComponent],
   templateUrl: './pokedex.component.html',
   styleUrl: './pokedex.component.css',
 })
@@ -16,6 +17,12 @@ export class PokedexComponent {
   private sub: Subscription | null = null;
   offset = signal(0);
   pokemons = signal<PokemonInListI[]>([]);
+
+  handleOffsetChange(value: number) {
+    this.offset.set(value);
+    this.pokemons.set([]);
+    this.loadNext();
+  }
 
   ngOnInit() {
     this.loadNext();
