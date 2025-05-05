@@ -1,12 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { PokemonCardComponent } from '@features/pokemon/components/pokemon-card/pokemon-card.component';
 import { PokemonService } from '@features/pokemon/services/pokemon.service';
-import { BasePokemonI } from '@features/pokemon/types/api';
+import { PokemonI, PokemonSpeciesI } from '@features/pokemon/types/api';
 import { map, of, Subscription, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-pokemon',
-  imports: [],
+  imports: [PokemonCardComponent],
   templateUrl: './pokemon.component.html',
   styleUrl: './pokemon.component.css',
 })
@@ -15,7 +16,8 @@ export class PokemonComponent {
   private route: ActivatedRoute = inject(ActivatedRoute);
   private sub: Subscription | null = null;
   private pokemonService = inject(PokemonService);
-  pokemon = signal<BasePokemonI | null>(null);
+  pokemon = signal<PokemonI | null>(null);
+  species = signal<PokemonSpeciesI | null>(null);
 
   ngOnInit() {
     this.sub = this.route.params
@@ -25,8 +27,13 @@ export class PokemonComponent {
           if (!id) return of(null);
           return this.pokemonService.getPokemonById(id);
         }),
+        switchMap((pokemon) => {
+          if (!pokemon) return of(null);
+          this.pokemon.set(pokemon);
+          return this.pokemonService.getPokemonSpeciesById(pokemon.id);
+        }),
       )
-      .subscribe((pokemon) => this.pokemon.set(pokemon));
+      .subscribe((species) => this.species.set(species));
   }
 
   ngOnDestroy() {

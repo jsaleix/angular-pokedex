@@ -10,24 +10,6 @@ export interface PokemonInListI {
   name: string;
 }
 
-export interface BasePokemonI {
-  id: number;
-  species: {
-    name: string;
-  };
-  sprites: {
-    front_default: string;
-    back_default: string;
-  };
-  types: Array<{
-    slot: number;
-    type: {
-      name: string;
-      url: string;
-    };
-  }>;
-}
-
 type Sprites = {
   front_default: string;
   back_default: string;
@@ -44,6 +26,9 @@ export interface PokemonI {
   name: string;
   sprites: Sprites;
   types: PokemonTypeI[];
+  species: {
+    name: string;
+  };
 }
 
 export interface PokemonSpeciesI {

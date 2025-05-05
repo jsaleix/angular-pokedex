@@ -2,7 +2,7 @@
 @let species = this.species();
 @if (pokemon && species) {
   <article
-    class="relative rounded ring-1 ring-black h-full w-full max-w-80 overflow-hidden p-5 bg-linear-to-bl from-white to-gray-300"
+    class="relative rounded ring-1 ring-black h-full w-full md:max-w-80 overflow-hidden p-5 bg-linear-to-bl from-white to-gray-300"
   >
     <header
       class="relative z-1 flex justify-between items-start"
@@ -14,18 +14,16 @@
       </h3>
       <div class="flex items-center gap-2">
         <figure>
-          <app-triangle-icon css="fill-black size-4 shadow-2xl" />
+          <app-square-icon css="fill-black size-4 shadow-2xl" />
         </figure>
         <figure>
-          <app-square-icon css="fill-black size-4 shadow-2xl" />
+          <app-triangle-icon
+            [css]="`size-4 shadow-2xl ${species.is_legendary ? 'fill-orange-400' : 'fill-black' }`"
+          />
         </figure>
         <figure title="mythical">
           <app-star-icon
-            [css]="
-              'size-4 shadow-2xl ' + species.is_mythical
-                ? 'fill-white stroke-yellow-400 stroke-2'
-                : 'fill-black'
-            "
+            [css]="`size-5 shadow-2xl ${species.is_mythical ? 'fill-white stroke-emerald-400 stroke-2' : 'fill-black'}`"
           />
         </figure>
       </div>

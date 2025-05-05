@@ -1,3 +1,7 @@
 <div class="container mx-auto px-5 md:px-0">
-  This is pokemon {{ pokemon()?.id }}
+  @let pokemon = this.pokemon();
+  @let species = this.species();
+  @if (pokemon && species) {
+    <app-pokemon-card [pokemon]="pokemon" [species]="species" />
+  }
 </div>

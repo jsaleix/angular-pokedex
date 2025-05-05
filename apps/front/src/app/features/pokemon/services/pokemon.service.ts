@@ -1,7 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
-import { BasePokemonI, PokeAPIResponseI, PokemonInListI } from '../types/api';
+import {
+  PokeAPIResponseI,
+  PokemonI,
+  PokemonInListI,
+  PokemonSpeciesI,
+} from '../types/api';
 
 interface GetPokemonsParamsI {
   limit?: number;
@@ -25,11 +30,11 @@ export class PokemonService {
 
   getPokemonById(id: number) {
     const url = new URL(`/api/v2/pokemon/${id}`, environment.pokeAPI);
-    return this.httpClient.get<BasePokemonI>(url.toString());
+    return this.httpClient.get<PokemonI>(url.toString());
   }
 
   getPokemonSpeciesById(id: number) {
     const url = new URL(`/api/v2/pokemon-species/${id}`, environment.pokeAPI);
-    return this.httpClient.get<BasePokemonI>(url.toString());
+    return this.httpClient.get<PokemonSpeciesI>(url.toString());
   }
 }
