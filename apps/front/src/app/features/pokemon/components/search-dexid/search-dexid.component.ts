@@ -1,9 +1,10 @@
 import { Component, input, model, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MagnifyingGlassIconComponent } from '@shared/components/icons/magnifying-glass-icon/magnifying-glass-icon.component';
 
 @Component({
   selector: 'app-search-dexid',
-  imports: [FormsModule],
+  imports: [FormsModule, MagnifyingGlassIconComponent],
   templateUrl: './search-dexid.component.html',
   styleUrl: './search-dexid.component.css',
 })
