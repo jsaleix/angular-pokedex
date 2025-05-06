@@ -1,13 +1,14 @@
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { PokemonCardSkeletonComponent } from '@features/pokemon/components/pokemon-card-skeleton/pokemon-card-skeleton.component';
 import { PokemonCardComponent } from '@features/pokemon/components/pokemon-card/pokemon-card.component';
 import { PokemonService } from '@features/pokemon/services/pokemon.service';
 import { PokemonI, PokemonSpeciesI } from '@features/pokemon/types/api';
-import { map, of, Subscription, switchMap } from 'rxjs';
+import { of, Subscription, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-pokemon',
-  imports: [PokemonCardComponent],
+  imports: [PokemonCardComponent, PokemonCardSkeletonComponent],
   templateUrl: './pokemon.component.html',
   styleUrl: './pokemon.component.css',
 })
@@ -33,7 +34,10 @@ export class PokemonComponent {
           return this.pokemonService.getPokemonSpeciesById(pokemon.id);
         }),
       )
-      .subscribe((species) => this.species.set(species));
+      .subscribe((species) => {
+        // SetTimeout here to let the skeleton be visible
+        setTimeout(() => this.species.set(species), 1200);
+      });
   }
 
   ngOnDestroy() {

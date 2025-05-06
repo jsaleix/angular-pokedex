@@ -7,7 +7,7 @@ import { Component, input, signal } from '@angular/core';
   styleUrl: './pokemon-shapes-animation.component.css',
 })
 export class PokemonShapesAnimationComponent {
-  private interval: NodeJS.Timeout | null = null;
+  private interval: ReturnType<typeof setInterval> | null = null;
   css = input<string>();
   current = signal(0);
 

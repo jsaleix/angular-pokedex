@@ -1,9 +1,10 @@
 <div class="container mx-auto px-5 md:px-0">
   @let pokemon = this.pokemon();
   @let species = this.species();
-  @if (pokemon && species) {
+
+  @if (!pokemon || !species) {
+    <app-pokemon-card-skeleton />
+  } @else {
     <app-pokemon-card [pokemon]="pokemon" [species]="species" />
-  }@else {
-    
   }
 </div>
