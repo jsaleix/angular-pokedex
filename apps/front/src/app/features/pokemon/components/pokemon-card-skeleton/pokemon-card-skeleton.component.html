@@ -1,0 +1,49 @@
+<article
+  class="relative rounded ring-1 ring-black h-full w-full md:max-w-80 overflow-hidden p-5 bg-linear-to-bl from-white to-gray-300 flex flex-col gap-5"
+>
+  <header
+    class="relative z-1 flex justify-between items-start"
+    style="z-index: 1"
+  >
+    <!-- <h3 class="text-4xl text-black text-shadow-sm select-none">
+      No
+      <span class="text-4xl">ID</span>
+    </h3> -->
+    <span class="h-5 w-16 animate-pulse bg-black"></span>
+    <div class="flex items-center gap-2">
+      <figure>
+        <app-square-icon css="fill-black size-4 shadow-2xl animate-pulse" />
+      </figure>
+      <figure>
+        <app-triangle-icon css="size-4 shadow-2xl fill-black animate-pulse" />
+      </figure>
+      <figure title="mythical">
+        <app-star-icon css="size-4 shadow-2xl fill-black animate-pulse" />
+      </figure>
+    </div>
+  </header>
+  <div
+    class="relative z-2 w-full h-80 aspect-square flex justify-center items-center"
+    style="z-index: 1"
+  >
+    <app-pokemon-shapes-animation />
+  </div>
+  <svg
+    class="absolute"
+    style="top: -10%; left: -25%; z-index: 0"
+    width="195"
+    height="195"
+    viewBox="0 0 195 195"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M97.5 0C110.304 0 122.982 2.52191 134.812 7.42175C146.641 12.3216 157.389 19.5034 166.443 28.5571C175.497 37.6108 182.678 48.3591 187.578 60.1884C192.478 72.0176 195 84.6961 195 97.5C195 123.359 184.728 148.158 166.443 166.443C148.158 184.728 123.359 195 97.5 195C84.6961 195 72.0176 192.478 60.1884 187.578C48.3591 182.678 37.6108 175.497 28.5571 166.443C10.2723 148.158 0 123.359 0 97.5C0 71.6414 10.2723 46.8419 28.5571 28.5571C46.8419 10.2723 71.6414 0 97.5 0ZM97.5 19.5C57.72 19.5 24.8625 49.2375 20.085 87.75H59.7675C64.0575 70.8825 79.365 58.5 97.5 58.5C115.635 58.5 130.942 70.8825 135.232 87.75H174.915C170.138 49.2375 137.28 19.5 97.5 19.5ZM97.5 175.5C137.28 175.5 170.138 145.763 174.915 107.25H135.232C130.942 124.118 115.635 136.5 97.5 136.5C79.365 136.5 64.0575 124.118 59.7675 107.25H20.085C24.8625 145.763 57.72 175.5 97.5 175.5ZM97.5 78C92.3283 78 87.3684 80.0545 83.7114 83.7114C80.0545 87.3684 78 92.3283 78 97.5C78 102.672 80.0545 107.632 83.7114 111.289C87.3684 114.946 92.3283 117 97.5 117C102.672 117 107.632 114.946 111.289 111.289C114.946 107.632 117 102.672 117 97.5C117 92.3283 114.946 87.3684 111.289 83.7114C107.632 80.0545 102.672 78 97.5 78Z"
+      fill="gray"
+    />
+  </svg>
+  <div class="flex flex-col select-none gap-3">
+    <span class="h-7 w-3/6 animate-pulse bg-black"></span>
+    <span class="h-8 w-4/6 animate-pulse bg-black"></span>
+  </div>
+</article>
