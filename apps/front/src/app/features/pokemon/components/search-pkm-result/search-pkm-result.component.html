@@ -1,5 +1,16 @@
-<li class="w-full flex bg-slate-200 hover:bg-slate-300 px-3 py-1 cursor-pointer">
-  <a [routerLink]="['/pokedex', data().id]" class="w-full">
+<li
+  class="w-full flex bg-slate-200 hover:bg-slate-300 px-3 py-1 cursor-pointer"
+>
+  <a
+    [routerLink]="['/pokedex', data().id]"
+    class="w-full flex items-center gap-3"
+  >
+    <span class="">
+      <img
+        [src]="`assets/imgs/pkm/icons/${data().id}.png`"
+        [alt]="data().name['english']"
+      />
+    </span>
     <span class="text-slate-600 font-bold">{{ data().id }}</span>
     {{ data().name[selectedLang()] }}
   </a>
