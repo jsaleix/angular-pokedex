@@ -1,14 +1,19 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { PokemonCardSkeletonComponent } from '@features/pokemon/components/pokemon-card-skeleton/pokemon-card-skeleton.component';
 import { PokemonCardComponent } from '@features/pokemon/components/pokemon-card/pokemon-card.component';
+import { WeaknessesPartComponent } from '@features/pokemon/components/weaknesses-part/weaknesses-part.component';
 import { PokemonService } from '@features/pokemon/services/pokemon.service';
 import { PokemonI, PokemonSpeciesI } from '@features/pokemon/types/api';
 import { of, Subscription, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-pokemon',
-  imports: [PokemonCardComponent, PokemonCardSkeletonComponent],
+  imports: [
+    PokemonCardComponent,
+    PokemonCardSkeletonComponent,
+    WeaknessesPartComponent,
+  ],
   templateUrl: './pokemon.component.html',
   styleUrl: './pokemon.component.css',
 })
@@ -19,6 +24,19 @@ export class PokemonComponent {
   private pokemonService = inject(PokemonService);
   pokemon = signal<PokemonI | null>(null);
   species = signal<PokemonSpeciesI | null>(null);
+  flavorText = computed(() => {
+    const species = this.species();
+    if (!species) return null;
+    const txt = species.flavor_text_entries.find(
+      (f) => f.language.name === 'en',
+    )?.flavor_text;
+    return txt ?? null;
+  });
+  types = computed(() => {
+    const pkm = this.pokemon();
+    if (!pkm) return [];
+    return pkm.types.map((t) => t.type.name);
+  });
 
   ngOnInit() {
     this.sub = this.route.params

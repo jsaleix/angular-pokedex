@@ -1,0 +1,16 @@
+@if (noWeaknesses()) {
+} @else {
+  <div class="flex flex-col gap-3">
+    <h2 class="text-3xl text-gray-300">Weaknesses</h2>
+    @for (multiplier of weaknessesToArray().reverse(); track $index) {
+      <article class="w-full h-fit flex items-center">
+        <h2 class="text-gray-400 text-3xl w-20 select-none">{{ multiplier[0] }}</h2>
+        <div class="w-full flex flex-wrap gap-x-5">
+          @for (pkmType of multiplier[1]; track $index) {
+            <p class="text-white capitalize">{{ pkmType }}</p>
+          }
+        </div>
+      </article>
+    }
+  </div>
+}

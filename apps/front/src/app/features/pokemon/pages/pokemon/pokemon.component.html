@@ -1,10 +1,39 @@
-<div class="container mx-auto px-5 md:px-0">
+<div
+  class="container mx-auto px-5 h-fit md:px-0 flex flex-col md:flex-row w-full"
+>
   @let pokemon = this.pokemon();
   @let species = this.species();
 
-  @if (!pokemon || !species) {
-    <app-pokemon-card-skeleton />
-  } @else {
-    <app-pokemon-card [pokemon]="pokemon" [species]="species" />
-  }
+  <div class="h-full flex justify-center items-center">
+    @if (!pokemon || !species) {
+      <app-pokemon-card-skeleton />
+    } @else {
+      <app-pokemon-card [pokemon]="pokemon" [species]="species" />
+    }
+  </div>
+  <div class="content w-full bg-black p-5 flex flex-col gap-5">
+    @if (!pokemon || !species) {
+    } @else {
+      <section class="dimensions h-24 flex overflow-hidden select-none">
+        <article
+          class="w-full flex flex-col items-center justify-center border-r-gray-500 border-r-2 text-white"
+        >
+          <h2 class="text-3xl">{{ pokemon!.weight }} kg</h2>
+          <span class="text-1xl text-gray-500">Weight</span>
+        </article>
+        <article
+          class="w-full flex flex-col items-center justify-center text-white"
+        >
+          <h2 class="text-3xl">{{ pokemon!.height }} cm</h2>
+          <span class="text-1xl text-gray-500">Height</span>
+        </article>
+      </section>
+      @if (flavorText()) {
+        <div class="bg-emerald-500 p-5 rounded-xl shadow-2xl">
+          <p class="text-white font-light text-xl">{{ flavorText() }}</p>
+        </div>
+      }
+      <app-weaknesses-part [types]="types()" />
+    }
+  </div>
 </div>
