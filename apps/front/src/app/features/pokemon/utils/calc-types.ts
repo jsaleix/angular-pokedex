@@ -2,6 +2,7 @@ export type Effectiveness = {
   'x0.5': string[];
   x0: string[];
   x2: string[];
+  x4: string[];
 };
 
 const typeChart: { [type: string]: { [target: string]: number } } = {
@@ -137,6 +138,7 @@ export function calcWeaknesses(types: string[]): Effectiveness {
     x0: [],
     'x0.5': [],
     x2: [],
+    x4: [],
   };
 
   for (const attackType of allTypes) {
@@ -151,7 +153,8 @@ export function calcWeaknesses(types: string[]): Effectiveness {
 
     if (multiplier === 0) result['x0'].push(attackType);
     else if (multiplier < 1) result['x0.5'].push(attackType);
-    else if (multiplier > 1) result['x2'].push(attackType);
+    else if (multiplier > 1 && multiplier < 4) result['x2'].push(attackType);
+    else if (multiplier === 4) result['x4'].push(attackType);
   }
 
   return result;
