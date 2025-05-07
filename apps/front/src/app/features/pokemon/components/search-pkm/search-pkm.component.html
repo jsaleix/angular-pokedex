@@ -4,7 +4,7 @@
     @for (lang of availableLangs; track $index) {
       <button
         (click)="this.changeLang($index)"
-        [class]="`cursor-pointer uppercase px-2 h-fit rounded-md border-1 ${lang === selectedLang() ? 'border-transparent bg-black text-white hover:bg-slate-800' : 'border-gray-600 hover:bg-gray-300'}`"
+        [class]="`cursor-pointer uppercase px-2 h-fit rounded-md border-1 ${$index === selectedLang() ? 'border-transparent bg-black text-white hover:bg-slate-800' : 'border-gray-600 hover:bg-gray-300'}`"
       >
         {{ lang }}
       </button>
@@ -16,9 +16,12 @@
     placeholder="Infernape"
     [(ngModel)]="this.inputModel"
   />
-  <div>
-    @for (result of results(); track $index) {
-      <li>{{ result }}</li>
-    }
+  <div class="w-full">
+    @let langKey = availableLangs[selectedLang()];
+    <ul class="flex flex-col w-full">
+      @for (result of results(); track $index) {
+        <app-search-pkm-result [data]="result" [selectedLang]="langKey" />
+      }
+    </ul>
   </div>
 </div>

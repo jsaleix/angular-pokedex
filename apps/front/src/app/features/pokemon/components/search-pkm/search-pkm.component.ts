@@ -1,30 +1,36 @@
-import { Component, effect, model, signal } from '@angular/core';
+import { Component, effect, inject, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { PokemonDataService } from '@features/pokemon/services/pokemon-data.service';
+import { PokemonSearchResult } from '@features/pokemon/types/data';
 import { InputComponent } from '@shared/components/input/input.component';
+import { SearchPkmResultComponent } from '../search-pkm-result/search-pkm-result.component';
 
-const LANGS = { fr: 'fr', en: 'en' } as const;
+const langs = { french: 'french', english: 'english' };
+const langArray = Object.values(langs);
 
 @Component({
   selector: 'app-search-pkm',
-  imports: [FormsModule, InputComponent],
+  imports: [FormsModule, InputComponent, SearchPkmResultComponent],
   templateUrl: './search-pkm.component.html',
   styleUrl: './search-pkm.component.css',
 })
 export class SearchPkmComponent {
+  pkmDataService = inject(PokemonDataService);
   inputModel = model('');
-  results = signal<string[]>([]);
-  availableLangs = [LANGS.en, LANGS.fr];
-  selectedLang = signal<string>(LANGS.en);
+  results = signal<PokemonSearchResult[]>([]);
+  selectedLang = signal<number>(0);
+  availableLangs = Object.keys(langs);
 
   changeLang(idx: number) {
-    if (idx > this.availableLangs.length || idx < 0) return;
-    this.selectedLang.set(this.availableLangs[idx]);
+    this.selectedLang.set(idx);
   }
 
   constructor() {
     effect(() => {
       if (this.inputModel()) {
-        this.results.set(['A', 'B', 'C']);
+        const lang = langArray[this.selectedLang()];
+        const res = this.pkmDataService.searchByName(this.inputModel(), lang);
+        this.results.set(res.slice(0, 10));
       } else {
         this.results.set([]);
       }

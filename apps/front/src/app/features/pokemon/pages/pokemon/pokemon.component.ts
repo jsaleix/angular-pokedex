@@ -42,6 +42,8 @@ export class PokemonComponent {
     this.sub = this.route.params
       .pipe(
         switchMap((params) => {
+          this.pokemon.set(null);
+          this.species.set(null);
           const id = params['id'];
           if (!id) return of(null);
           return this.pokemonService.getPokemonById(id);

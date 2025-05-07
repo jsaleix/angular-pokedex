@@ -5,8 +5,11 @@ import {
   output,
   viewChild,
   effect,
+  inject,
 } from '@angular/core';
 import { SearchPkmComponent } from '../search-pkm/search-pkm.component';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-search-pkm-modal',
@@ -17,6 +20,7 @@ import { SearchPkmComponent } from '../search-pkm/search-pkm.component';
 export class SearchPkmModalComponent {
   private dialogRef =
     viewChild<ElementRef<HTMLDialogElement>>('searchPkmModal');
+  router = inject(Router);
   modalState = input(false);
   onCloseModal = output();
 
@@ -25,6 +29,13 @@ export class SearchPkmModalComponent {
       if (this.modalState()) {
         this.dialogRef()?.nativeElement.showModal();
       }
+    });
+    effect(() => {
+      this.router.events
+        .pipe(filter((event) => event instanceof NavigationStart))
+        .subscribe(() => {
+          this.closeModal();
+        });
     });
   }
 

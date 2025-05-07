@@ -1,0 +1,6 @@
+<li class="w-full flex bg-slate-200 hover:bg-slate-300 px-3 py-1 cursor-pointer">
+  <a [routerLink]="['/pokedex', data().id]" class="w-full">
+    <span class="text-slate-600 font-bold">{{ data().id }}</span>
+    {{ data().name[selectedLang()] }}
+  </a>
+</li>
