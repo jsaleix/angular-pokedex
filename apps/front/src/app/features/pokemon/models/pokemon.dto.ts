@@ -16,7 +16,7 @@ export interface PokemonDTO {
   speciesUrl: string;
 }
 
-export function mapPokemonIToDto(apiResponse: PokemonI): PokemonDTO {
+export function mapPokemonApiToDto(apiResponse: PokemonI): PokemonDTO {
   const { id, name, weight, height, sprites, types, species } = apiResponse;
 
   return {

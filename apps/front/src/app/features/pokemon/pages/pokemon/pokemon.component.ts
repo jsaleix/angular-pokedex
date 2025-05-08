@@ -3,6 +3,14 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 import { PokemonCardSkeletonComponent } from '@features/pokemon/components/pokemon-card-skeleton/pokemon-card-skeleton.component';
 import { PokemonCardComponent } from '@features/pokemon/components/pokemon-card/pokemon-card.component';
 import { WeaknessesPartComponent } from '@features/pokemon/components/weaknesses-part/weaknesses-part.component';
+import {
+  mapPokemonApiToDto,
+  PokemonDTO,
+} from '@features/pokemon/models/pokemon.dto';
+import {
+  mapSpeciesApiToDto,
+  SpeciesDTO,
+} from '@features/pokemon/models/species.dto';
 import { PokemonService } from '@features/pokemon/services/pokemon.service';
 import { PokemonI, PokemonSpeciesI } from '@features/pokemon/types/api';
 import { of, Subscription, switchMap } from 'rxjs';
@@ -18,25 +26,11 @@ import { of, Subscription, switchMap } from 'rxjs';
   styleUrl: './pokemon.component.css',
 })
 export class PokemonComponent {
-  private router: Router = inject(Router);
   private route: ActivatedRoute = inject(ActivatedRoute);
   private sub: Subscription | null = null;
   private pokemonService = inject(PokemonService);
-  pokemon = signal<PokemonI | null>(null);
-  species = signal<PokemonSpeciesI | null>(null);
-  flavorText = computed(() => {
-    const species = this.species();
-    if (!species) return null;
-    const txt = species.flavor_text_entries.find(
-      (f) => f.language.name === 'en',
-    )?.flavor_text;
-    return txt ?? null;
-  });
-  types = computed(() => {
-    const pkm = this.pokemon();
-    if (!pkm) return [];
-    return pkm.types.map((t) => t.type.name);
-  });
+  pokemon = signal<PokemonDTO | null>(null);
+  species = signal<SpeciesDTO | null>(null);
 
   ngOnInit() {
     this.sub = this.route.params
@@ -50,13 +44,14 @@ export class PokemonComponent {
         }),
         switchMap((pokemon) => {
           if (!pokemon) return of(null);
-          this.pokemon.set(pokemon);
+          this.pokemon.set(mapPokemonApiToDto(pokemon));
           return this.pokemonService.getPokemonSpeciesById(pokemon.id);
         }),
       )
       .subscribe((species) => {
         // SetTimeout here to let the skeleton be visible
-        setTimeout(() => this.species.set(species), 1200);
+        if (species)
+          setTimeout(() => this.species.set(mapSpeciesApiToDto(species)), 1200);
       });
   }
 

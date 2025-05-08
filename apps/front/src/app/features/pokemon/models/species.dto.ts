@@ -4,20 +4,13 @@ export interface SpeciesDTO {
   id: number;
   name: string;
   names: Record<string, string>;
-  flavor_text_entries: Array<{
-    flavor_text: string;
-    language: { name: string; url: string };
-    version: {
-      name: string;
-      url: string;
-    };
-  }>;
+  flavor_text: string | null;
   is_legendary: boolean;
   is_mythical: boolean;
   is_baby: boolean;
 }
 
-export function mapPokemonIToDto(apiResponse: PokemonSpeciesI): SpeciesDTO {
+export function mapSpeciesApiToDto(apiResponse: PokemonSpeciesI): SpeciesDTO {
   const {
     id,
     name,
@@ -31,7 +24,9 @@ export function mapPokemonIToDto(apiResponse: PokemonSpeciesI): SpeciesDTO {
   return {
     id,
     name,
-    flavor_text_entries,
+    flavor_text:
+      flavor_text_entries.find((f) => f.language.name === 'en')?.flavor_text ??
+      null,
     is_baby,
     is_legendary,
     is_mythical,

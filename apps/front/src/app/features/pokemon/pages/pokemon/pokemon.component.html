@@ -18,22 +18,22 @@
         <article
           class="w-full flex flex-col items-center justify-center border-r-gray-500 border-r-2 text-white"
         >
-          <h2 class="text-3xl">{{ pokemon!.weight }} kg</h2>
+          <h2 class="text-3xl">{{ pokemon!.dimensions.weight }} kg</h2>
           <span class="text-1xl text-gray-500">Weight</span>
         </article>
         <article
           class="w-full flex flex-col items-center justify-center text-white"
         >
-          <h2 class="text-3xl">{{ pokemon!.height }} cm</h2>
+          <h2 class="text-3xl">{{ pokemon!.dimensions.height }} cm</h2>
           <span class="text-1xl text-gray-500">Height</span>
         </article>
       </section>
-      @if (flavorText()) {
+      @if (species.flavor_text) {
         <div class="bg-emerald-500 p-5 rounded-xl shadow-2xl">
-          <p class="text-white font-light text-xl">{{ flavorText() }}</p>
+          <p class="text-white font-light text-xl">{{ species.flavor_text }}</p>
         </div>
       }
-      <app-weaknesses-part [types]="types()" />
+      <app-weaknesses-part [types]="pokemon.types" />
     }
   </div>
 </div>
