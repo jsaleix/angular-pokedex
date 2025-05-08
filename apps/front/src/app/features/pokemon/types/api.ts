@@ -28,10 +28,13 @@ export interface PokemonI {
   types: PokemonTypeI[];
   species: {
     name: string;
+    url: string;
   };
 }
 
 export interface PokemonSpeciesI {
+  id: number;
+  name: string;
   evolution_chain: {
     url: string;
   } | null;
@@ -45,6 +48,14 @@ export interface PokemonSpeciesI {
   }>;
   is_legendary: boolean;
   is_mythical: boolean;
+  is_baby: boolean;
+  names: Array<{
+    language: {
+      name: string;
+      url: string;
+    };
+    name: string;
+  }>;
 }
 
 export interface PokemonTypeI {
