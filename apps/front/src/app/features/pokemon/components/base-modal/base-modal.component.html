@@ -1,0 +1,9 @@
+<p>base-modal works!</p>
+<dialog #modalElement (close)="this.closeModal()" class="modal">
+  <div class="modalBox">
+    <form method="dialog" class="close-dialog">
+      <button class="closeButton">✕</button>
+    </form>
+    <ng-content />
+  </div>
+</dialog>

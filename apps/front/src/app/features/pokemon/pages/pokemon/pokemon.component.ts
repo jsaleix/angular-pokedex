@@ -12,7 +12,6 @@ import {
   SpeciesDTO,
 } from '@features/pokemon/models/species.dto';
 import { PokemonService } from '@features/pokemon/services/pokemon.service';
-import { PokemonI, PokemonSpeciesI } from '@features/pokemon/types/api';
 import { of, Subscription, switchMap } from 'rxjs';
 
 @Component({
