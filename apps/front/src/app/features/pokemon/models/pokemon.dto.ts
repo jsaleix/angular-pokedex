@@ -14,10 +14,25 @@ export interface PokemonDTO {
   };
   types: string[];
   speciesUrl: string;
+  abilities: Array<{ name: string; url: string; isHidden: boolean }>;
+  moves: Array<{
+    name: string;
+    url: string;
+  }>;
 }
 
 export function mapPokemonApiToDto(apiResponse: PokemonI): PokemonDTO {
-  const { id, name, weight, height, sprites, types, species } = apiResponse;
+  const {
+    id,
+    name,
+    weight,
+    height,
+    sprites,
+    types,
+    species,
+    abilities,
+    moves,
+  } = apiResponse;
 
   return {
     id,
@@ -30,5 +45,11 @@ export function mapPokemonApiToDto(apiResponse: PokemonI): PokemonDTO {
     },
     types: types.map((t) => t.type.name),
     speciesUrl: species.url,
+    abilities: abilities.map((a) => ({
+      name: a.ability.name,
+      url: a.ability.url,
+      isHidden: a.is_hidden,
+    })),
+    moves: moves.map((m) => ({ name: m.move.name, url: m.move.url })),
   };
 }

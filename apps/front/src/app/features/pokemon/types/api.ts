@@ -1,4 +1,4 @@
-export type PokeAPIResponseI<T> = {
+export type PaginatedResponseI<T> = {
   count: number;
   next: null | string;
   previous: null | string;
@@ -30,6 +30,20 @@ export interface PokemonI {
     name: string;
     url: string;
   };
+  abilities: Array<{
+    ability: {
+      name: string;
+      url: string;
+    };
+    is_hidden: boolean;
+    slot: number;
+  }>;
+  moves: Array<{
+    move: {
+      name: string;
+      url: string;
+    };
+  }>;
 }
 
 export interface PokemonSpeciesI {

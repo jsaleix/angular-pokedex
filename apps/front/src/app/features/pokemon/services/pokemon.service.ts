@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import {
-  PokeAPIResponseI,
+  PaginatedResponseI,
   PokemonI,
   PokemonInListI,
   PokemonSpeciesI,
@@ -23,7 +23,7 @@ export class PokemonService {
       `/api/v2/pokemon?limit=${limit}&offset=${offset}`,
       environment.pokeAPI,
     );
-    return this.httpClient.get<PokeAPIResponseI<PokemonInListI>>(
+    return this.httpClient.get<PaginatedResponseI<PokemonInListI>>(
       url.toString(),
     );
   }
