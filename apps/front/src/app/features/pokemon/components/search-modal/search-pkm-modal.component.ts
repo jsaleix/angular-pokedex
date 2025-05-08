@@ -8,7 +8,7 @@ import {
   inject,
 } from '@angular/core';
 import { SearchPkmComponent } from '../search-pkm/search-pkm.component';
-import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
 import { filter } from 'rxjs';
 
 @Component({

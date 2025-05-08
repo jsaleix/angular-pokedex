@@ -4,9 +4,19 @@
       <a routerLink="" class="navbar-item">PKM ANGULAR</a>
     </div>
     <div class="flex gap-5 items-center">
-      <figure (click)="modalOpen.set(true)" class="group cursor-pointer">
-        <app-magnifying-glass-icon css="group-hover:stroke-emerald-400" />
-      </figure>
+      <div class="flex items-center gap-3 text-xs">
+        <p>
+          <kbd>Ctrl</kbd>
+          +
+          <kbd>K</kbd>
+        </p>
+        <figure
+          (click)="this.searchModalService.open()"
+          class="group cursor-pointer"
+        >
+          <app-magnifying-glass-icon css="group-hover:stroke-emerald-400" />
+        </figure>
+      </div>
       <a
         routerLink="pokedex"
         routerLinkActive="underline"
@@ -43,8 +53,4 @@
       }
     </div>
   </div>
-  <app-search-pkm-modal
-    [modalState]="modalOpen()"
-    (onCloseModal)="modalOpen.set(false)"
-  />
 </header>

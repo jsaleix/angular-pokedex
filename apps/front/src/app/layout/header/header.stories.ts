@@ -10,11 +10,7 @@ const meta: Meta<HeaderComponent> = {
     }),
   ],
   tags: [],
-  argTypes: {
-    backgroundColor: {
-      control: 'color',
-    },
-  },
+  argTypes: {},
   args: {},
 };
 

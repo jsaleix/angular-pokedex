@@ -1,3 +1,9 @@
+@reference "tailwindcss"
+
 :host {
   font-family: "emerald";
+}
+
+kbd {
+  @apply bg-slate-700 text-white px-2 py-1 rounded-md select-none shadow-lg shadow-emerald-300;
 }
