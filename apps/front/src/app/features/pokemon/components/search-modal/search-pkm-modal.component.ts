@@ -6,6 +6,7 @@ import {
   viewChild,
   effect,
   inject,
+  signal,
 } from '@angular/core';
 import { SearchPkmComponent } from '../search-pkm/search-pkm.component';
 import { NavigationStart, Router } from '@angular/router';

@@ -1,4 +1,16 @@
-import { Component, effect, inject, model, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  ElementRef,
+  inject,
+  input,
+  InputSignal,
+  model,
+  signal,
+  viewChild,
+  viewChildren,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PokemonDataService } from '@features/pokemon/services/pokemon-data.service';
 import { PokemonSearchResult } from '@features/pokemon/types/data';
@@ -18,11 +30,23 @@ export class SearchPkmComponent {
   pkmDataService = inject(PokemonDataService);
   inputModel = model('');
   results = signal<PokemonSearchResult[]>([]);
+
+  // inputChildren = viewChildren(InputComponent);
+  // inputRef = computed(() => this.inputChildren()[0].ref);
+
+  inputRef = viewChild(InputComponent);
+
+  isFocused = input(false);
+
   selectedLang = signal<number>(0);
   availableLangs = Object.keys(langs);
 
   changeLang(idx: number) {
     this.selectedLang.set(idx);
+  }
+
+  clearInput() {
+    this.inputModel.set('');
   }
 
   constructor() {
@@ -33,6 +57,12 @@ export class SearchPkmComponent {
         this.results.set(res.slice(0, 10));
       } else {
         this.results.set([]);
+      }
+    });
+
+    effect(() => {
+      if (this.isFocused()) {
+        this.inputRef()?.focus();
       }
     });
   }

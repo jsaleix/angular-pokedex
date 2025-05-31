@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { PokemonSearchResult } from '@features/pokemon/types/data';
 
@@ -11,4 +11,5 @@ import { PokemonSearchResult } from '@features/pokemon/types/data';
 export class SearchPkmResultComponent {
   data = input.required<PokemonSearchResult>();
   selectedLang = input.required<string>();
+  clicked = output();
 }

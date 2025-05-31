@@ -1,4 +1,11 @@
-import { Component, forwardRef, input, output, signal } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  forwardRef,
+  input,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -7,6 +14,7 @@ import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
   styleUrl: './input.component.css',
   template: `
     <input
+      #inputRef
       [class]="
         'border-1 border-gray-500 shadow-md rounded-md w-full px-3 py-1 outline-none placeholder:text-gray-400 ' +
         css()
@@ -30,6 +38,8 @@ export class InputComponent {
   value = signal<string>('');
   placeholder = input<string>();
   css = input<string>();
+  ref = input<ElementRef>();
+  inputRef = viewChild<ElementRef<HTMLInputElement>>('inputRef');
 
   private onChange: (val: string) => void = () => {};
   onTouched: () => void = () => {};
@@ -51,5 +61,9 @@ export class InputComponent {
     const input = event.target as HTMLInputElement;
     this.value.set(input.value);
     this.onChange(input.value);
+  }
+
+  focus(): void {
+    this.inputRef()?.nativeElement.focus();
   }
 }
