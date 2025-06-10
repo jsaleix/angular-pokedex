@@ -1,14 +1,25 @@
 import { TestBed } from '@angular/core/testing';
 
 import { PokemonDataService } from './pokemon-data.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { of } from 'rxjs';
 
 describe('PokemonDataService', () => {
   let service: PokemonDataService;
+  let mockHttpClient: jasmine.SpyObj<HttpClient>;
 
   beforeEach(() => {
+    mockHttpClient = jasmine.createSpyObj('HttpClient', ['get']);
+    mockHttpClient.get.and.returnValue(of());
+
     TestBed.configureTestingModule({
-      imports: [HttpClient]
+      imports: [],
+      providers: [
+        {
+          provide: HttpClient,
+          useValue: mockHttpClient,
+        },
+      ],
     });
     service = TestBed.inject(PokemonDataService);
   });
