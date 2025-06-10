@@ -13,6 +13,7 @@ describe('PokemonListComponent', () => {
 
     fixture = TestBed.createComponent(PokemonListComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('pokemons', []);
     fixture.detectChanges();
   });
 
