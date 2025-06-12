@@ -64,6 +64,11 @@
       >
         / {{ pokemon.name | uppercase }}
       </h2>
+      <div class="flex gap-3 flex-wrap delay-200 animate-fade-right" style="animation-delay: 0.6s">
+        @for (pkmType of pokemon.types; track pkmType) {
+          <app-type-item [pkmType]="pkmType" />
+        }
+      </div>
     </div>
   </article>
 }
