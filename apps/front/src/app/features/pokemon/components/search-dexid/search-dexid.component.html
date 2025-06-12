@@ -25,12 +25,22 @@
       </p>
     </div>
 
-    <div
-      class="bg-emerald-500 p-5 rounded-xl shadow-2xl w-fit md:max-w-2/5 mddd:w-4/5"
-    >
-      <p class="text-slate-200 text-xl leading-5 text-shadow-md select-none">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      </p>
+    <div class="relative flex flex-col w-fit md:max-w-2/5 gap-3">
+      <div class="bg-emerald-500 p-5 rounded-xl shadow-2xl w-full">
+        <p class="text-slate-200 text-xl leading-5 text-shadow-md select-none">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-3 py-2">
+        @for (gen of offsets; track gen) {
+          <button
+            (click)="this.changeOffset(gen[1])"
+            class="cursor-pointer text-slate-200 text-xl leading-5 text-shadow-md select-none hover:text-slate-600"
+          >
+            GEN.{{ gen[0] }}
+          </button>
+        }
+      </div>
     </div>
   </div>
 </div>
