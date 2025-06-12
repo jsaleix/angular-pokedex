@@ -3,10 +3,11 @@ import {
   calcWeaknesses,
   Effectiveness,
 } from '@features/pokemon/utils/calc-types';
+import { TypeItemComponent } from '../type-item/type-item.component';
 
 @Component({
   selector: 'app-weaknesses-part',
-  imports: [],
+  imports: [TypeItemComponent],
   templateUrl: './weaknesses-part.component.html',
   styleUrl: './weaknesses-part.component.css',
 })

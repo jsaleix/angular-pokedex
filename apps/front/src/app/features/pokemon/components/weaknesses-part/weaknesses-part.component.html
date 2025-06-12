@@ -10,7 +10,7 @@
           </h2>
           <div class="w-full flex flex-wrap gap-x-5">
             @for (pkmType of multiplier[1]; track $index) {
-              <p class="text-white capitalize">{{ pkmType }}</p>
+              <app-type-item [pkmType]="pkmType" />
             }
           </div>
         </article>
