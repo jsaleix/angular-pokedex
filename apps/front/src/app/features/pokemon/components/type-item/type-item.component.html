@@ -1,3 +1,7 @@
-<span class="w-fit bg-black border-2 border-white">
-  <p class="text-white capitalize">{{ pkmType() }}</p>
-</span>
+<article
+  class="w-fit bg-inherit border-2 border-white px-3 rounded-md"
+  [style.backgroundColor]="color()"
+  [style.borderColor]="color()"
+>
+  <span class="text-white capitalize w-fit text-center">{{ pkmType() }}</span>
+</article>
