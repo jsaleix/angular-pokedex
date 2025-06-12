@@ -7,9 +7,11 @@ import {
 import { PokemonCardComponent } from './pokemon-card.component';
 import { mockPokemonData } from '@features/pokemon/services/data/pokemon';
 import { MockPokemonSpecies } from '@features/pokemon/services/data/species';
+import { mapPokemonApiToDto } from '@features/pokemon/models/pokemon.dto';
+import { mapSpeciesApiToDto } from '@features/pokemon/models/species.dto';
 
-const pokemonData = mockPokemonData;
-const pokemonSpeciesData = MockPokemonSpecies;
+const pokemonData = mapPokemonApiToDto(mockPokemonData);
+const pokemonSpeciesData = mapSpeciesApiToDto(MockPokemonSpecies);
 
 const meta: Meta<PokemonCardComponent> = {
   title: 'Features/Pokemon/Components/Pokemon-Card',
