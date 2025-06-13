@@ -21,6 +21,7 @@ import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
       "
       type="text"
       [value]="value()"
+      [id]="id()"
       (input)="onInput($event)"
       (blur)="onTouched()"
       [placeholder]="placeholder()"
@@ -40,6 +41,7 @@ export class InputComponent {
   css = input<string>();
   ref = input<ElementRef>();
   inputRef = viewChild<ElementRef<HTMLInputElement>>('inputRef');
+  id = input<string>();
 
   private onChange: (val: string) => void = () => {};
   onTouched: () => void = () => {};
