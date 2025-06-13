@@ -1,21 +1,18 @@
 import {
   Component,
-  computed,
   effect,
-  ElementRef,
   inject,
   input,
-  InputSignal,
   model,
   signal,
   viewChild,
-  viewChildren,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PokemonDataService } from '@features/pokemon/services/pokemon-data.service';
 import { PokemonSearchResult } from '@features/pokemon/types/data';
 import { InputComponent } from '@shared/components/input/input.component';
 import { SearchPkmResultComponent } from '../search-pkm-result/search-pkm-result.component';
+import { Router } from '@angular/router';
 
 const langs = { french: 'french', english: 'english' };
 const langArray = Object.values(langs);
@@ -27,12 +24,10 @@ const langArray = Object.values(langs);
   styleUrl: './search-pkm.component.css',
 })
 export class SearchPkmComponent {
+  router = inject(Router);
   pkmDataService = inject(PokemonDataService);
   inputModel = model('');
   results = signal<PokemonSearchResult[]>([]);
-
-  // inputChildren = viewChildren(InputComponent);
-  // inputRef = computed(() => this.inputChildren()[0].ref);
 
   inputRef = viewChild(InputComponent);
 
@@ -65,5 +60,13 @@ export class SearchPkmComponent {
         this.inputRef()?.focus();
       }
     });
+  }
+
+  onPressEnter() {
+    const currentPkms = this.results();
+    if (currentPkms.length > 0) {
+      this.router.navigate(['/pokedex/', +currentPkms[0].id]);
+      this.clearInput();
+    }
   }
 }
