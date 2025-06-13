@@ -11,6 +11,7 @@
     }
   </div>
   <app-input
+    id="search_pkm_input"
     css="border-3! border-black!"
     placeholder="Infernape"
     [(ngModel)]="this.inputModel"
@@ -18,7 +19,7 @@
   />
   <div class="w-full">
     @let langKey = availableLangs[selectedLang()];
-    <ul class="flex flex-col w-full">
+    <ul class="flex flex-col w-full" id="search_pkm_results">
       @for (result of results(); track $index) {
         <app-search-pkm-result
           [data]="result"
