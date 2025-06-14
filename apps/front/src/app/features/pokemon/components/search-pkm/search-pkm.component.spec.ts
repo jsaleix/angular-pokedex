@@ -2,8 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SearchPkmComponent } from './search-pkm.component';
 import { PokemonDataService } from '@features/pokemon/services/pokemon-data.service';
-import { first, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { By } from '@angular/platform-browser';
 
 const searchAResults = [
   { id: 1, name: { french: 'Torterra', english: 'Torterra' } },
@@ -124,13 +125,79 @@ describe('SearchPkmComponent', () => {
     expect(elementList.length).toBe(0);
   });
 
-  it('Display results based on what was typed', () => {});
+  it('Display FR and EN language buttons', () => {
+    const langPart = fixture.nativeElement.querySelector('#search_pkm_langs');
+    expect(langPart).toBeTruthy();
 
-  it('Display FR and EN language buttons', () => {});
+    const frBtn = By.css('FRENCH');
+    const enBtn = By.css('ENGLISH');
 
-  it('Allow user to change which language is selected', () => {});
+    expect(frBtn).toBeTruthy();
+    expect(enBtn).toBeTruthy();
+  });
 
-  it('Display the results according to the selected language', () => {});
+  it('Allow user to change which language is selected', async () => {
+    const buttons = fixture.nativeElement.querySelectorAll('button');
+
+    const enBtn = Array.from(buttons).find(
+      (button: any) => button.textContent.trim() === 'english',
+    ) as HTMLButtonElement;
+    const frBtn = Array.from(buttons).find(
+      (button: any) => button.textContent.trim() === 'french',
+    ) as HTMLButtonElement;
+
+    expect(frBtn.ariaSelected).toBe('true');
+    expect(enBtn.ariaSelected).toBe('false');
+    // checked component state
+    expect(component.selectedLang()).toBe(0);
+
+    enBtn.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(frBtn.ariaSelected).toBe('false');
+    expect(enBtn.ariaSelected).toBe('true');
+      // checked component state
+    expect(component.selectedLang()).toBe(1);
+  });
+
+  it('Display the results according to the selected language', async () => {
+    await fixture.whenStable();
+    const input = fixture.nativeElement.querySelector('input');
+
+    const buttons = fixture.nativeElement.querySelectorAll('button');
+
+    const enBtn = Array.from(buttons).find(
+      (button: any) => button.textContent.trim() === 'english',
+    );
+
+    /* Typing 'simiabraz' and displaying it
+     * 'Simiabraz' is the french name of this pokemon
+     * Then switch language to 'english'
+     * Now 'Simiabraz' should have changed to its english name which is 'Internape'
+     */
+
+    input.value = 'Simiabraz';
+    input.dispatchEvent(new Event('input'));
+
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const simiabraz = fixture.nativeElement.querySelector(
+      'app-search-pkm-result',
+    );
+    expect(simiabraz.textContent).toContain('Simiabraz');
+
+    (enBtn as HTMLButtonElement).click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const infernape = fixture.nativeElement.querySelector(
+      'app-search-pkm-result',
+    );
+    expect(infernape.textContent).toContain('Infernape');
+    expect(simiabraz.textContent).not.toContain('Simiabraz');
+  });
 
   it('If there are results, pressing "Enter" navigates to the first result', () => {});
 
