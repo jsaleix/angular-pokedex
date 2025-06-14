@@ -58,11 +58,14 @@ export class SearchPkmComponent {
     effect(() => {
       if (this.isFocused()) {
         this.inputRef()?.focus();
+      } else {
+        this.inputModel.set('');
       }
     });
   }
 
-  onPressEnter() {
+  onPressEnter(e: KeyboardEvent) {
+    if (e.key !== 'Enter') return;
     const currentPkms = this.results();
     if (currentPkms.length > 0) {
       this.router.navigate(['/pokedex/', +currentPkms[0].id]);

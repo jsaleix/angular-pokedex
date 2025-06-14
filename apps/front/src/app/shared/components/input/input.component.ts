@@ -1,8 +1,11 @@
 import {
   Component,
   ElementRef,
+  EventEmitter,
   forwardRef,
   input,
+  Output,
+  output,
   signal,
   viewChild,
 } from '@angular/core';
@@ -25,6 +28,7 @@ import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
       (input)="onInput($event)"
       (blur)="onTouched()"
       [placeholder]="placeholder()"
+      (keydown)="onKeydown($event)"
     />
   `,
   providers: [
@@ -36,6 +40,7 @@ import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
   ],
 })
 export class InputComponent {
+  @Output() keydown = new EventEmitter<KeyboardEvent>();
   value = signal<string>('');
   placeholder = input<string>();
   css = input<string>();
@@ -44,6 +49,11 @@ export class InputComponent {
   id = input<string>();
 
   private onChange: (val: string) => void = () => {};
+
+  onKeydown(event: KeyboardEvent) {
+    this.keydown.emit(event);
+  }
+
   onTouched: () => void = () => {};
 
   writeValue(val: string): void {

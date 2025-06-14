@@ -16,7 +16,7 @@
     css="border-3! border-black!"
     placeholder="Infernape"
     [(ngModel)]="this.inputModel"
-    (keydown.enter)="this.onPressEnter()"
+    (keydown)="this.onPressEnter($event)"
   />
   <div class="w-full">
     @let langKey = availableLangs[selectedLang()];
