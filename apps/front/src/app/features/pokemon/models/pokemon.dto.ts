@@ -4,8 +4,8 @@ export interface PokemonDTO {
   id: number;
   name: string;
   dimensions: {
-    height: number;
-    weight: number;
+    height: number; // expressed in decimeters, so *10 = cm
+    weight: number; // expresses in hectograms, so /100 = kg
   };
   sprites: {
     front_default: string;
