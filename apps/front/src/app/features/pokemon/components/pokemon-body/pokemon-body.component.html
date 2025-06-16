@@ -2,7 +2,22 @@
 @let species = this.species();
 
 <div class="center w-full bg-black p-5 flex flex-col gap-5">
-  <div class="w-full h-[50x] bg-white"></div>
+  <div
+    class="w-full h-[100px] flex items-center justify-between px-10 border-b-1 border-gray-500"
+  >
+    @if (pokemon.id - 1 > -1) {
+      <div class="flex flex-row w-fit items-center cursor-pointer gap-5 hover:opacity-70 duration-100">
+        <p class="text-white select-none drag-none text-3xl">{{ "<" }}</p>
+        <app-pokemon-body-selector [pokemonId]="pokemon.id - 1" />
+      </div>
+    } @else {
+      <div></div>
+    }
+    <div class="flex flex-row w-fit items-center cursor-pointer gap-5 hover:opacity-70 duration-100">
+      <app-pokemon-body-selector [pokemonId]="pokemon.id + 1" />
+      <p class="text-white select-none drag-none text-3xl">{{ ">" }}</p>
+    </div>
+  </div>
   <section class="dimensions h-24 flex overflow-hidden select-none">
     <article
       class="w-full flex flex-col items-center justify-center border-r-gray-500 border-r-2 text-white"

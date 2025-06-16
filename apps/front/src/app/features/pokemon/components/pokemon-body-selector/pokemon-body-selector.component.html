@@ -1,3 +1,4 @@
-<article class="h-[80px] w-[80px]">
-  <img [src]="url()" class="w-full h-full"/>
+<article class="h-[80px] max-w-[120px] flex flex-col overflow-hidden items-center">
+  <img [src]="data()?.url" class="w-full h-full object-contain -mt-[30px] select-none drag-none" />
+  <p class="text-white w-fit select-none drag-none">{{ data()?.name }}</p>
 </article>
