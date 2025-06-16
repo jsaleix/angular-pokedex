@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PokemonBodySelectorComponent } from './pokemon-body-selector.component';
+import { PokemonDataService } from '@features/pokemon/services/pokemon-data.service';
+
+class MockPokemonDataService {}
 
 describe('PokemonBodySelectorComponent', () => {
   let component: PokemonBodySelectorComponent;
@@ -8,9 +11,14 @@ describe('PokemonBodySelectorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PokemonBodySelectorComponent]
-    })
-    .compileComponents();
+      imports: [PokemonBodySelectorComponent],
+      providers: [
+        {
+          provide: PokemonDataService,
+          useValue: MockPokemonDataService,
+        },
+      ],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PokemonBodySelectorComponent);
     component = fixture.componentInstance;

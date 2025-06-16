@@ -8,12 +8,12 @@ describe('TypeItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TypeItemComponent]
-    })
-    .compileComponents();
+      imports: [TypeItemComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TypeItemComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('pkmType', 'Fire');
     fixture.detectChanges();
   });
 
