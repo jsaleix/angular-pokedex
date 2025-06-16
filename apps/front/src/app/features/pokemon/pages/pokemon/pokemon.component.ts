@@ -1,5 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { PokemonBodyComponent } from '@features/pokemon/components/pokemon-body/pokemon-body.component';
 import { PokemonCardSkeletonComponent } from '@features/pokemon/components/pokemon-card-skeleton/pokemon-card-skeleton.component';
 import { PokemonCardComponent } from '@features/pokemon/components/pokemon-card/pokemon-card.component';
 import { WeaknessesPartComponent } from '@features/pokemon/components/weaknesses-part/weaknesses-part.component';
@@ -19,7 +20,7 @@ import { of, Subscription, switchMap } from 'rxjs';
   imports: [
     PokemonCardComponent,
     PokemonCardSkeletonComponent,
-    WeaknessesPartComponent,
+    PokemonBodyComponent,
   ],
   templateUrl: './pokemon.component.html',
   styleUrl: './pokemon.component.css',
