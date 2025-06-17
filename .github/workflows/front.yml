@@ -26,14 +26,12 @@ jobs:
               uses: actions/setup-node@v4
               with:
                   node-version: 20
-                  # cache: "pnpm"
-                  # cache-dependencies-path: "./apps/front/pnpm-lock.yaml"
 
             - name: Install dependencies
               run: pnpm install
 
             - name: Run tests
-              run: pnpm test
+              run: pnpm test:ci
 
             - name: Build project
               run: pnpm run build
