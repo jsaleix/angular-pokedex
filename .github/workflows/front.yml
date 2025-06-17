@@ -42,4 +42,7 @@ jobs:
         if: github.ref == 'refs/heads/master'
         steps:
             - name: Deploy to production
-              run: echo "Triggering deployment..."
+              run: | 
+              curl \
+              --request GET '${{ secrets.DEPLOY_URL }}' \
+              --header 'Authorization: Bearer ${{ secrets.DEPLOY_TOKEN }}' \
