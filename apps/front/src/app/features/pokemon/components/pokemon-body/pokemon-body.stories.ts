@@ -11,6 +11,9 @@ import { MockPokemonSpecies } from '@features/pokemon/services/data/species';
 import { mapPokemonApiToDto } from '@features/pokemon/models/pokemon.dto';
 import { mapSpeciesApiToDto } from '@features/pokemon/models/species.dto';
 import { PokemonDataService } from '@features/pokemon/services/pokemon-data.service';
+import { mockPkmSpecies } from '@features/pokemon/pages/pokemon/mock-pkm';
+import { of } from 'rxjs';
+import { PokemonService } from '@features/pokemon/services/pokemon.service';
 
 const pokemonData = { ...mapPokemonApiToDto(mockPokemonData), id: 2 };
 const pokemonSpeciesData = mapSpeciesApiToDto(MockPokemonSpecies);
@@ -28,6 +31,12 @@ class MockPokemonDataService {
   }
 }
 
+class MockPokemonService {
+  getPokemonSpeciesById(_: number) {
+    return of(mockPkmSpecies);
+  }
+}
+
 const meta: Meta<PokemonBodyComponent> = {
   title: 'Features/Pokemon/Components/Pokemon-Body',
   component: PokemonBodyComponent,
@@ -36,6 +45,7 @@ const meta: Meta<PokemonBodyComponent> = {
       imports: [],
       providers: [
         { provide: PokemonDataService, useClass: MockPokemonDataService },
+        { provide: PokemonService, useClass: MockPokemonService },
       ],
     }),
   ],
