@@ -102,3 +102,20 @@ export interface PokemonAbilityResponse {
     };
   }[];
 }
+
+export type PokemonEvolutionEntryType = {
+  evolution_details: [];
+  evolves_to: PokemonEvolutionEntryType[];
+  is_baby: boolean;
+  species: PokemonSpeciesInResponses;
+};
+
+export interface PokemonSpeciesInResponses {
+  name: string;
+  url: string;
+}
+export interface PokemonEvolutionChainResponse {
+  id: number;
+  baby_trigger_item: string | null;
+  chain: PokemonEvolutionEntryType;
+}
