@@ -61,5 +61,59 @@ describe('Utils API', () => {
       expect(result.length).toBe(2);
       expect(result).toEqual(species);
     });
+
+    it('Should handle non-linear evolution chain', () => {
+      const branchedData = {
+        id: 2,
+        baby_trigger_item: null,
+        chain: {
+          evolution_details: [],
+          is_baby: false,
+          evolves_to: [
+            {
+              evolution_details: [],
+              is_baby: false,
+              evolves_to: [],
+              species: {
+                name: 'Vaporeon',
+                url: 'urlV',
+              },
+            },
+            {
+              evolution_details: [],
+              is_baby: false,
+              evolves_to: [],
+              species: {
+                name: 'Jolteon',
+                url: 'urlJ',
+              },
+            },
+            {
+              evolution_details: [],
+              is_baby: false,
+              evolves_to: [],
+              species: {
+                name: 'Flareon',
+                url: 'urlF',
+              },
+            },
+          ],
+          species: {
+            name: 'Eevee',
+            url: 'urlE',
+          },
+        },
+      } satisfies PokemonEvolutionChainResponse;
+
+      const branchedSpecies = [
+        { name: 'Eevee', url: 'urlE' },
+        { name: 'Vaporeon', url: 'urlV' },
+        { name: 'Jolteon', url: 'urlJ' },
+        { name: 'Flareon', url: 'urlF' },
+      ];
+      const branchedResult = extractSpeciesFromChainResult(branchedData.chain);
+      expect(branchedResult.length).toBe(4);
+      expect(branchedResult).toEqual(branchedSpecies);
+    });
   });
 });
