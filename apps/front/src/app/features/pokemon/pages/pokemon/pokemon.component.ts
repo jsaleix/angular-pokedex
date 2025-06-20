@@ -40,9 +40,10 @@ export class PokemonComponent {
   abilities = signal<PokemonAbility[]>([]);
 
   constructor() {
+    // Fetching abilities
     effect(async () => {
       const pkm = this.pokemon();
-      if (!pkm) return [];
+      if (!pkm) return;
       const rawAbilities = pkm.abilities
         .map((a) => extractIdFromUrl(a.url))
         .filter(Boolean) as number[];
@@ -56,8 +57,6 @@ export class PokemonComponent {
         mapAbilityFromApi(res),
       );
       this.abilities.set(res);
-
-      return () => {};
     });
   }
 
@@ -67,6 +66,7 @@ export class PokemonComponent {
         switchMap((params) => {
           this.pokemon.set(null);
           this.species.set(null);
+          this.abilities.set([]);
           const id = params['id'];
           if (!id) return of(null);
           return this.pokemonService.getPokemonById(id);

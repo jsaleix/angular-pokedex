@@ -1,6 +1,5 @@
 import { Component, input } from '@angular/core';
 import { PokemonAbility } from '@features/pokemon/models/abilities.dto';
-import { PokemonDTO } from '@features/pokemon/models/pokemon.dto';
 
 @Component({
   selector: 'app-abilities-part',

@@ -11,9 +11,12 @@ import { mapSpeciesApiToDto } from '@features/pokemon/models/species.dto';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
+import { mapAbilityFromApi } from '@features/pokemon/models/abilities.dto';
+import { mockAbilityData } from '@features/pokemon/services/data/abilities';
 
 const pokemon = mapPokemonApiToDto(mockPokemon);
 const species = mapSpeciesApiToDto(mockPkmSpecies);
+const abilities = mapAbilityFromApi(mockAbilityData);
 
 class ActivatedRouteMock {
   queryParams = new Observable((observer) => {
@@ -31,13 +34,17 @@ describe('PokemonBodyComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [PokemonBodyComponent],
-      providers: [{ provide: ActivatedRoute, useClass: ActivatedRouteMock }, provideHttpClient()],
+      providers: [
+        { provide: ActivatedRoute, useClass: ActivatedRouteMock },
+        provideHttpClient(),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PokemonBodyComponent);
     component = fixture.componentInstance;
     fixture.componentRef.setInput('pokemon', pokemon);
     fixture.componentRef.setInput('species', species);
+    fixture.componentRef.setInput('abilities', [abilities]);
     fixture.detectChanges();
   });
 
