@@ -1,4 +1,5 @@
 import { PokemonSpeciesI } from '../types/api';
+import { extractEvolutionChainIdFromUrl } from '../utils/api';
 
 export interface SpeciesDTO {
   id: number;
@@ -8,6 +9,7 @@ export interface SpeciesDTO {
   is_legendary: boolean;
   is_mythical: boolean;
   is_baby: boolean;
+  evolutionChainId?: number;
 }
 
 export function mapSpeciesApiToDto(apiResponse: PokemonSpeciesI): SpeciesDTO {
@@ -19,7 +21,11 @@ export function mapSpeciesApiToDto(apiResponse: PokemonSpeciesI): SpeciesDTO {
     is_baby,
     names,
     flavor_text_entries,
+    evolution_chain,
   } = apiResponse;
+
+  const evolutionChainId =
+    extractEvolutionChainIdFromUrl(evolution_chain?.url ?? '') ?? undefined;
 
   return {
     id,
@@ -34,5 +40,6 @@ export function mapSpeciesApiToDto(apiResponse: PokemonSpeciesI): SpeciesDTO {
       (acc, curr) => ({ ...acc, [curr.language.name]: curr.name }),
       {},
     ),
+    evolutionChainId,
   };
 }

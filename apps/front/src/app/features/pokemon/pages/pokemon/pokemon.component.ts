@@ -18,7 +18,7 @@ import {
 } from '@features/pokemon/models/species.dto';
 import { PokemonService } from '@features/pokemon/services/pokemon.service';
 import { PokemonAbilityResponse } from '@features/pokemon/types/api';
-import { extractIdFromUrl } from '@features/pokemon/utils/extract';
+import { extractIdFromAbilityUrl } from '@features/pokemon/utils/api';
 import { firstValueFrom, of, Subscription, switchMap } from 'rxjs';
 
 @Component({
@@ -38,6 +38,7 @@ export class PokemonComponent {
   pokemon = signal<PokemonDTO | null>(null);
   species = signal<SpeciesDTO | null>(null);
   abilities = signal<PokemonAbility[]>([]);
+  family = signal<number[]>([]);
 
   constructor() {
     // Fetching abilities
@@ -45,7 +46,7 @@ export class PokemonComponent {
       const pkm = this.pokemon();
       if (!pkm) return;
       const rawAbilities = pkm.abilities
-        .map((a) => extractIdFromUrl(a.url))
+        .map((a) => extractIdFromAbilityUrl(a.url))
         .filter(Boolean) as number[];
       const resolved = await Promise.all(
         rawAbilities.map(
@@ -57,6 +58,13 @@ export class PokemonComponent {
         mapAbilityFromApi(res),
       );
       this.abilities.set(res);
+    });
+
+    effect(() => {
+      const pkm = this.pokemon();
+      if (!pkm) return;
+      const res = [] as number[];
+      this.family.set(res);
     });
   }
 
