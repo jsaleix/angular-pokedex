@@ -17,8 +17,15 @@ import {
   SpeciesDTO,
 } from '@features/pokemon/models/species.dto';
 import { PokemonService } from '@features/pokemon/services/pokemon.service';
-import { PokemonAbilityResponse } from '@features/pokemon/types/api';
-import { extractIdFromAbilityUrl } from '@features/pokemon/utils/api';
+import {
+  PokemonAbilityResponse,
+  PokemonSpeciesInResponses,
+} from '@features/pokemon/types/api';
+import {
+  extractEvolutionChainIdFromUrl,
+  extractIdFromAbilityUrl,
+  extractSpeciesFromChainResult,
+} from '@features/pokemon/utils/api';
 import { firstValueFrom, of, Subscription, switchMap } from 'rxjs';
 
 @Component({
@@ -38,7 +45,7 @@ export class PokemonComponent {
   pokemon = signal<PokemonDTO | null>(null);
   species = signal<SpeciesDTO | null>(null);
   abilities = signal<PokemonAbility[]>([]);
-  family = signal<number[]>([]);
+  family = signal<PokemonSpeciesInResponses[]>([]);
 
   constructor() {
     // Fetching abilities
@@ -60,11 +67,14 @@ export class PokemonComponent {
       this.abilities.set(res);
     });
 
-    effect(() => {
-      const pkm = this.pokemon();
-      if (!pkm) return;
-      const res = [] as number[];
-      this.family.set(res);
+    effect(async () => {
+      const species = this.species();
+      if (!species || !species.evolutionChainId) return;
+      const rawChain = await firstValueFrom(
+        this.pokemonService.getEvolutionChain(species.evolutionChainId),
+      );
+      const familyRes = extractSpeciesFromChainResult(rawChain.chain);
+      this.family.set(familyRes);
     });
   }
 

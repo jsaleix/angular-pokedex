@@ -4,7 +4,7 @@
   @let pokemon = this.pokemon();
   @let species = this.species();
 
-  <div class="h-full flex justify-center items-center">
+  <div class="h-full flex flex-col lg:gap-3">
     @if (!pokemon || !species) {
       <app-pokemon-card-skeleton />
     } @else {

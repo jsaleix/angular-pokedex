@@ -4,6 +4,7 @@ import { environment } from 'environments/environment';
 import {
   PaginatedResponseI,
   PokemonAbilityResponse,
+  PokemonEvolutionChainResponse,
   PokemonI,
   PokemonInListI,
   PokemonSpeciesI,
@@ -42,5 +43,10 @@ export class PokemonService {
   getAbilityById(id: number) {
     const url = new URL(`/api/v2/ability/${id}`, environment.pokeAPI);
     return this.httpClient.get<PokemonAbilityResponse>(url.toString());
+  }
+
+  getEvolutionChain(id: number) {
+    const url = new URL(`/api/v2/evolution-chain/${id}`, environment.pokeAPI);
+    return this.httpClient.get<PokemonEvolutionChainResponse>(url.toString());
   }
 }
