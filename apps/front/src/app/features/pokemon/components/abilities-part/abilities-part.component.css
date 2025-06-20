@@ -1,0 +1,8 @@
+@reference "tailwindcss";
+
+:host {
+  @apply flex w-full bg-black p-5;
+  /* display: flex;
+  width: 100%;
+  background-color: black; */
+}

@@ -1,1 +1,22 @@
-<p>abilities-part works!</p>
+<div class="w-full flex flex-col gap-3">
+  <h2 class="text-3xl text-white">Abilities</h2>
+  @let abilities = this.abilities();
+  <div class="flex flex-col gap-3">
+    @for (ability of abilities; track ability) {
+      <article>
+        <h2 class="uppercase text-slate-400">{{ ability.name }}</h2>
+        <p class="text-white text-lg">
+          {{ ability.description }}
+          <span
+            title="Game this description is taken from"
+            class="text-slate-500"
+          >
+            ({{ ability.gameFrom }})
+          </span>
+        </p>
+      </article>
+    } @empty {
+      <p class="text-slate-500">No ability</p>
+    }
+  </div>
+</div>

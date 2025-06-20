@@ -78,3 +78,27 @@ export interface PokemonTypeI {
     name: string;
   };
 }
+
+export interface PokemonAbilityResponse {
+  id: number;
+  name: string;
+  effect_entries: {
+    effect: string;
+    short_effect: string;
+    language: {
+      name: string;
+      url: string;
+    };
+  }[];
+  flavor_text_entries: {
+    flavor_text: string;
+    language: {
+      name: string;
+      url: string;
+    };
+    version_group: {
+      name: string;
+      url: string;
+    };
+  }[];
+}
