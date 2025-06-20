@@ -1,9 +1,13 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { PokemonBodyComponent } from '@features/pokemon/components/pokemon-body/pokemon-body.component';
 import { PokemonCardSkeletonComponent } from '@features/pokemon/components/pokemon-card-skeleton/pokemon-card-skeleton.component';
 import { PokemonCardComponent } from '@features/pokemon/components/pokemon-card/pokemon-card.component';
 import { WeaknessesPartComponent } from '@features/pokemon/components/weaknesses-part/weaknesses-part.component';
+import {
+  mapAbilityFromApi,
+  PokemonAbility,
+} from '@features/pokemon/models/abilities.dto';
 import {
   mapPokemonApiToDto,
   PokemonDTO,
@@ -13,7 +17,9 @@ import {
   SpeciesDTO,
 } from '@features/pokemon/models/species.dto';
 import { PokemonService } from '@features/pokemon/services/pokemon.service';
-import { of, Subscription, switchMap } from 'rxjs';
+import { PokemonAbilityResponse } from '@features/pokemon/types/api';
+import { extractIdFromUrl } from '@features/pokemon/utils/extract';
+import { firstValueFrom, of, Subscription, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-pokemon',
@@ -31,6 +37,29 @@ export class PokemonComponent {
   private pokemonService = inject(PokemonService);
   pokemon = signal<PokemonDTO | null>(null);
   species = signal<SpeciesDTO | null>(null);
+  abilities = signal<PokemonAbility[]>([]);
+
+  constructor() {
+    effect(async () => {
+      const pkm = this.pokemon();
+      if (!pkm) return [];
+      const rawAbilities = pkm.abilities
+        .map((a) => extractIdFromUrl(a.url))
+        .filter(Boolean) as number[];
+      const resolved = await Promise.all(
+        rawAbilities.map(
+          async (abilityId) =>
+            await firstValueFrom(this.pokemonService.getAbilityById(abilityId)),
+        ),
+      );
+      const res = resolved.map((res: PokemonAbilityResponse) =>
+        mapAbilityFromApi(res),
+      );
+      this.abilities.set(res);
+
+      return () => {};
+    });
+  }
 
   ngOnInit() {
     this.sub = this.route.params

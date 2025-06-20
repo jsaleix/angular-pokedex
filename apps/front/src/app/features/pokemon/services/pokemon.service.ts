@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import {
   PaginatedResponseI,
+  PokemonAbilityResponse,
   PokemonI,
   PokemonInListI,
   PokemonSpeciesI,
@@ -36,5 +37,10 @@ export class PokemonService {
   getPokemonSpeciesById(id: number) {
     const url = new URL(`/api/v2/pokemon-species/${id}`, environment.pokeAPI);
     return this.httpClient.get<PokemonSpeciesI>(url.toString());
+  }
+
+  getAbilityById(id: number) {
+    const url = new URL(`/api/v2/ability/${id}`, environment.pokeAPI);
+    return this.httpClient.get<PokemonAbilityResponse>(url.toString());
   }
 }

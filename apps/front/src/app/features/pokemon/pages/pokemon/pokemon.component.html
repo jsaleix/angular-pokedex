@@ -14,7 +14,11 @@
   <div class="w-full bg-black">
     @if (!pokemon || !species) {
     } @else {
-      <app-pokemon-body [pokemon]="pokemon" [species]="species" />
+      <app-pokemon-body
+        [pokemon]="pokemon"
+        [species]="species"
+        [abilities]="abilities()"
+      />
     }
   </div>
 </div>
