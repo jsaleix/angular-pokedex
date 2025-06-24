@@ -2,6 +2,7 @@ import {
   PokemonEvolutionChainResponse,
   PokemonEvolutionEntryType,
 } from '../types/api';
+import { AppPokemonSpeciesI } from '../types/data';
 import { extractSpeciesFromChainResult } from './api';
 
 describe('Utils API', () => {
@@ -16,12 +17,19 @@ describe('Utils API', () => {
           evolves_to: [],
           species: {
             name: 'Bulbasaur',
-            url: 'urlA',
+            url: 'https://pokeapi.co/api/v2/pokemon-species/1',
           },
         },
       } satisfies PokemonEvolutionChainResponse;
 
-      const species = [{ name: 'Bulbasaur', url: 'urlA' }];
+      const species = [
+        {
+          name: 'Bulbasaur',
+          url: 'https://pokeapi.co/api/v2/pokemon-species/1',
+          id: 1,
+        },
+      ] as AppPokemonSpeciesI[];
+
       const result = extractSpeciesFromChainResult(data.chain);
       expect(result.length).toBe(1);
       expect(result[0].name).toBe('Bulbasaur');
@@ -42,22 +50,32 @@ describe('Utils API', () => {
               evolves_to: [],
               species: {
                 name: 'Ivysaur',
-                url: 'urlB',
+                url: 'https://pokeapi.co/api/v2/pokemon-species/2',
               },
             },
           ],
           species: {
             name: 'Bulbasaur',
-            url: 'urlA',
+            url: 'https://pokeapi.co/api/v2/pokemon-species/1',
           },
         },
       } satisfies PokemonEvolutionChainResponse;
 
       const species = [
-        { name: 'Bulbasaur', url: 'urlA' },
-        { name: 'Ivysaur', url: 'urlB' },
-      ];
+        {
+          id: 1,
+          name: 'Bulbasaur',
+          url: 'https://pokeapi.co/api/v2/pokemon-species/1',
+        },
+        {
+          id: 2,
+          name: 'Ivysaur',
+          url: 'https://pokeapi.co/api/v2/pokemon-species/2',
+        },
+      ] as AppPokemonSpeciesI[];
+
       const result = extractSpeciesFromChainResult(data.chain);
+      console.log(result);
       expect(result.length).toBe(2);
       expect(result).toEqual(species);
     });
@@ -76,7 +94,7 @@ describe('Utils API', () => {
               evolves_to: [],
               species: {
                 name: 'Vaporeon',
-                url: 'urlV',
+                url: 'https://pokeapi.co/api/v2/pokemon-species/134',
               },
             },
             {
@@ -85,7 +103,7 @@ describe('Utils API', () => {
               evolves_to: [],
               species: {
                 name: 'Jolteon',
-                url: 'urlJ',
+                url: 'https://pokeapi.co/api/v2/pokemon-species/135',
               },
             },
             {
@@ -94,23 +112,40 @@ describe('Utils API', () => {
               evolves_to: [],
               species: {
                 name: 'Flareon',
-                url: 'urlF',
+                url: 'https://pokeapi.co/api/v2/pokemon-species/136',
               },
             },
           ],
           species: {
             name: 'Eevee',
-            url: 'urlE',
+            url: 'https://pokeapi.co/api/v2/pokemon-species/133',
           },
         },
       } satisfies PokemonEvolutionChainResponse;
 
       const branchedSpecies = [
-        { name: 'Eevee', url: 'urlE' },
-        { name: 'Vaporeon', url: 'urlV' },
-        { name: 'Jolteon', url: 'urlJ' },
-        { name: 'Flareon', url: 'urlF' },
-      ];
+        {
+          id: 133,
+          name: 'Eevee',
+          url: 'https://pokeapi.co/api/v2/pokemon-species/133',
+        },
+        {
+          id: 134,
+          name: 'Vaporeon',
+          url: 'https://pokeapi.co/api/v2/pokemon-species/134',
+        },
+        {
+          id: 135,
+          name: 'Jolteon',
+          url: 'https://pokeapi.co/api/v2/pokemon-species/135',
+        },
+        {
+          id: 136,
+          name: 'Flareon',
+          url: 'https://pokeapi.co/api/v2/pokemon-species/136',
+        },
+      ] as AppPokemonSpeciesI[];
+
       const branchedResult = extractSpeciesFromChainResult(branchedData.chain);
       expect(branchedResult.length).toBe(4);
       expect(branchedResult).toEqual(branchedSpecies);

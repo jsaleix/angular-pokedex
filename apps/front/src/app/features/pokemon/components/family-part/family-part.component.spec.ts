@@ -2,9 +2,19 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FamilyPartComponent } from './family-part.component';
 import { mockPkmSpecies } from '@features/pokemon/pages/pokemon/mock-pkm';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { PokemonDataService } from '@features/pokemon/services/pokemon-data.service';
 import { PokemonService } from '@features/pokemon/services/pokemon.service';
+import { ActivatedRoute } from '@angular/router';
+
+class ActivatedRouteMock {
+  queryParams = new Observable((observer) => {
+    const urlParams = {};
+
+    observer.next(urlParams);
+    observer.complete();
+  });
+}
 
 class MockPokemonDataService {
   getById(id: number) {
@@ -35,6 +45,7 @@ describe('FamilyPartComponent', () => {
       providers: [
         { provide: PokemonDataService, useClass: MockPokemonDataService },
         { provide: PokemonService, useClass: MockPokemonService },
+        { provide: ActivatedRoute, useClass: ActivatedRouteMock },
       ],
     }).compileComponents();
 
