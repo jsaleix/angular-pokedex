@@ -1,5 +1,6 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { FamilyPartComponent } from '@features/pokemon/components/family-part/family-part.component';
 import { PokemonBodyComponent } from '@features/pokemon/components/pokemon-body/pokemon-body.component';
 import { PokemonCardSkeletonComponent } from '@features/pokemon/components/pokemon-card-skeleton/pokemon-card-skeleton.component';
 import { PokemonCardComponent } from '@features/pokemon/components/pokemon-card/pokemon-card.component';
@@ -21,6 +22,7 @@ import {
   PokemonAbilityResponse,
   PokemonSpeciesInResponses,
 } from '@features/pokemon/types/api';
+import { AppPokemonSpeciesI } from '@features/pokemon/types/data';
 import {
   extractEvolutionChainIdFromUrl,
   extractIdFromAbilityUrl,
@@ -34,6 +36,7 @@ import { firstValueFrom, of, Subscription, switchMap } from 'rxjs';
     PokemonCardComponent,
     PokemonCardSkeletonComponent,
     PokemonBodyComponent,
+    FamilyPartComponent,
   ],
   templateUrl: './pokemon.component.html',
   styleUrl: './pokemon.component.css',
@@ -45,7 +48,10 @@ export class PokemonComponent {
   pokemon = signal<PokemonDTO | null>(null);
   species = signal<SpeciesDTO | null>(null);
   abilities = signal<PokemonAbility[]>([]);
-  family = signal<PokemonSpeciesInResponses[]>([]);
+  family = signal<AppPokemonSpeciesI[]>([]);
+  familyIds = computed(() => {
+    return this.family().map((species) => species.id);
+  });
 
   constructor() {
     // Fetching abilities
@@ -69,7 +75,10 @@ export class PokemonComponent {
 
     effect(async () => {
       const species = this.species();
-      if (!species || !species.evolutionChainId) return;
+      if (!species || !species.evolutionChainId) {
+        this.family.set([]);
+        return;
+      }
       const rawChain = await firstValueFrom(
         this.pokemonService.getEvolutionChain(species.evolutionChainId),
       );

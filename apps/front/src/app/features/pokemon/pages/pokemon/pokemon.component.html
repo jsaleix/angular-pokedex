@@ -1,5 +1,5 @@
 <div
-  class="container mx-auto px-5 h-fit md:px-0 flex flex-col md:flex-row w-full"
+  class="container mx-auto px-5 h-fit md:px-0 flex flex-col md:flex-row w-full lg:gap-3"
 >
   @let pokemon = this.pokemon();
   @let species = this.species();
@@ -9,6 +9,7 @@
       <app-pokemon-card-skeleton />
     } @else {
       <app-pokemon-card [pokemon]="pokemon" [species]="species" />
+      <app-family-part [speciesIds]="familyIds()" />
     }
   </div>
   <div class="w-full bg-black">

@@ -114,6 +114,8 @@ export interface PokemonSpeciesInResponses {
   name: string;
   url: string;
 }
+
+
 export interface PokemonEvolutionChainResponse {
   id: number;
   baby_trigger_item: string | null;

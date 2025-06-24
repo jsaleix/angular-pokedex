@@ -1,10 +1,12 @@
 <div
   class="relative rounded ring-1 ring-black max-h-fit w-full md:max-w-80 overflow-hidden p-5 bg-linear-to-bl from-white to-gray-300 flex flex-col gap-3"
 >
-  <h3 class="text-2xl text-black text-shadow-sm select-none">Family</h3>
-  <div class="flex gap-5 flex-wrap">
+  <h3 class="text-3xl text-black text-shadow-sm select-none">Family</h3>
+  <div class="flex gap-5 flex-wrap justify-center">
     @for (id of speciesIds(); track id) {
-      <app-pokemon-sprite-item [pokemonId]="id" [lightMode]="false" />
+      <a [routerLink]="['/pokedex', id]">
+        <app-pokemon-sprite-item [pokemonId]="id" [lightMode]="false" />
+      </a>
     } @empty {
       <p class="text-lg text-slate-600">No data</p>
     }

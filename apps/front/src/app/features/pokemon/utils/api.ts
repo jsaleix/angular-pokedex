@@ -1,7 +1,9 @@
 import {
   PokemonEvolutionEntryType,
+  PokemonSpeciesI,
   PokemonSpeciesInResponses,
 } from '../types/api';
+import { AppPokemonSpeciesI } from '../types/data';
 
 export function extractIdFromAbilityUrl(url: string) {
   const match = url.match(/\/(\d+)\/?$/);
@@ -21,8 +23,17 @@ export function extractDexIdFromSpeciesUrl(url: string) {
 // Using recursive strategy since entries are nested instead each other
 export function extractSpeciesFromChainResult(
   entry: PokemonEvolutionEntryType,
-): PokemonSpeciesInResponses[] {
-  const speciesList: PokemonSpeciesInResponses[] = [entry.species];
+): AppPokemonSpeciesI[] {
+  const { name, url } = entry.species;
+  const id = extractDexIdFromSpeciesUrl(url);
+  if (!id) return [];
+
+  const species = {
+    id,
+    name,
+    url,
+  };
+  const speciesList: AppPokemonSpeciesI[] = [species];
 
   for (const evo of entry.evolves_to) {
     speciesList.push(...extractSpeciesFromChainResult(evo));
