@@ -25,6 +25,7 @@ export class PokemonDataService {
       return p.name[lang].toLowerCase().includes(lower);
     });
   }
+
   getById(id: number) {
     if (id < -1) return null;
     const pkm = this._pokemons().find((pkm) => pkm.id === id);
