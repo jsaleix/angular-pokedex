@@ -1,3 +1,5 @@
+@reference "tailwindcss";
+
 :host {
   font-family: "emerald";
   @apply flex h-96;
