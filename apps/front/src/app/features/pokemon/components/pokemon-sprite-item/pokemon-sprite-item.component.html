@@ -6,5 +6,11 @@
     class="w-full h-full object-contain -mt-[30px] select-none drag-none"
     onError="this.src='https://raw.githubusercontent.com/msikma/pokesprite/master/pokemon-gen7x/unknown-gen5.png'"
   />
-  <p class="text-white w-fit select-none drag-none">{{ data()?.name }}</p>
+  <p
+    [class.text-black]="!lightMode()"
+    [class.text-white]="lightMode()"
+    class="w-fit select-none drag-none"
+  >
+    {{ data()?.name }}
+  </p>
 </article>

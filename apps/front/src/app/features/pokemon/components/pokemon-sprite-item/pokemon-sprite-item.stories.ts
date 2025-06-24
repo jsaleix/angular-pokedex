@@ -54,5 +54,5 @@ export default meta;
 type Story = StoryObj<PokemonSpriteItemComponent>;
 
 export const PokemonSpriteItem: Story = {
-  args: { pokemonId: 809 },
+  args: { pokemonId: 809, lightMode: false },
 };

@@ -18,6 +18,8 @@ type DataType = {
 export class PokemonSpriteItemComponent {
   pokemonId = input.required<number>();
   data = signal<DataType | null>(null);
+  lightMode = input(true);
+  
   pokemonDataService = inject(PokemonDataService);
   pokemonService = inject(PokemonService);
 
