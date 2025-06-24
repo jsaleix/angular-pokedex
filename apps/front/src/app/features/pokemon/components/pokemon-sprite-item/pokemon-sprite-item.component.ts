@@ -10,12 +10,12 @@ type DataType = {
   url: string;
 };
 @Component({
-  selector: 'app-pokemon-body-selector',
+  selector: 'app-pokemon-sprite-item',
   imports: [],
-  templateUrl: './pokemon-body-selector.component.html',
-  styleUrl: './pokemon-body-selector.component.css',
+  templateUrl: './pokemon-sprite-item.component.html',
+  styleUrl: './pokemon-sprite-item.component.css',
 })
-export class PokemonBodySelectorComponent {
+export class PokemonSpriteItemComponent {
   pokemonId = input.required<number>();
   data = signal<DataType | null>(null);
   pokemonDataService = inject(PokemonDataService);

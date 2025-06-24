@@ -8,7 +8,7 @@ import { of } from "rxjs";
 
 import { PokemonDataService } from "@features/pokemon/services/pokemon-data.service";
 import { PokemonService } from "@features/pokemon/services/pokemon.service";
-import { PokemonBodySelectorComponent } from "./pokemon-body-selector.component";
+import { PokemonSpriteItemComponent } from "./pokemon-sprite-item.component";
 import { mockPkmSpecies } from "@features/pokemon/pages/pokemon/mock-pkm";
 
 class MockPokemonDataService {
@@ -30,9 +30,9 @@ class MockPokemonService {
   }
 }
 
-const meta: Meta<PokemonBodySelectorComponent> = {
-  title: "Features/Pokemon/Components/Pokemon-Body-Selector",
-  component: PokemonBodySelectorComponent,
+const meta: Meta<PokemonSpriteItemComponent> = {
+  title: "Features/Pokemon/Components/Pokemon-Sprite-Item",
+  component: PokemonSpriteItemComponent,
   decorators: [
     componentWrapperDecorator(
       (story) =>
@@ -51,8 +51,8 @@ const meta: Meta<PokemonBodySelectorComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<PokemonBodySelectorComponent>;
+type Story = StoryObj<PokemonSpriteItemComponent>;
 
-export const PokemonBodySelector: Story = {
+export const PokemonSpriteItem: Story = {
   args: { pokemonId: 809 },
 };

@@ -23,6 +23,7 @@ class MockPokemonService {
     return of(mockPkmSpecies);
   }
 }
+
 const meta: Meta<FamilyPartComponent> = {
   title: 'Features/Pokemon/Components/FamilyPart',
   component: FamilyPartComponent,

@@ -11,7 +11,7 @@
         class="flex flex-row w-fit items-center cursor-pointer gap-5 hover:opacity-70 duration-100"
       >
         <p class="text-white select-none drag-none text-3xl">{{ "<" }}</p>
-        <app-pokemon-body-selector [pokemonId]="pokemon.id - 1" />
+        <app-pokemon-sprite-item [pokemonId]="pokemon.id - 1" />
       </a>
     } @else {
       <div></div>
@@ -20,7 +20,7 @@
       [routerLink]="['/pokedex', pokemon.id + 1]"
       class="flex flex-row w-fit items-center cursor-pointer gap-5 hover:opacity-70 duration-100"
     >
-      <app-pokemon-body-selector [pokemonId]="pokemon.id + 1" />
+      <app-pokemon-sprite-item [pokemonId]="pokemon.id + 1" />
       <p class="text-white select-none drag-none text-3xl">{{ ">" }}</p>
     </a>
   </div>
