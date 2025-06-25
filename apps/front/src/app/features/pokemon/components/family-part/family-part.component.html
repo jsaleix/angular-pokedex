@@ -4,7 +4,11 @@
   <h3 class="text-3xl text-black text-shadow-sm select-none">Family</h3>
   <div class="flex gap-5 flex-wrap justify-center">
     @for (id of speciesIds(); track id) {
-      <a [routerLink]="['/pokedex', id]">
+      <a
+        [routerLink]="['/pokedex', id]"
+        routerLinkActive="opacity-70"
+        class="flex flex-row w-fit items-center cursor-pointer gap-5 hover:opacity-70 duration-100"
+      >
         <app-pokemon-sprite-item [pokemonId]="id" [lightMode]="false" />
       </a>
     } @empty {
