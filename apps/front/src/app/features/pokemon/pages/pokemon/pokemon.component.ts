@@ -1,10 +1,7 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
-import { ActivatedRoute, Route, Router } from '@angular/router';
-import { FamilyPartComponent } from '@features/pokemon/components/family-part/family-part.component';
-import { PokemonBodyComponent } from '@features/pokemon/components/pokemon-body/pokemon-body.component';
-import { PokemonCardSkeletonComponent } from '@features/pokemon/components/pokemon-card-skeleton/pokemon-card-skeleton.component';
-import { PokemonCardComponent } from '@features/pokemon/components/pokemon-card/pokemon-card.component';
-import { WeaknessesPartComponent } from '@features/pokemon/components/weaknesses-part/weaknesses-part.component';
+import { ActivatedRoute } from '@angular/router';
+import { firstValueFrom, of, Subscription, switchMap } from 'rxjs';
+
 import {
   mapAbilityFromApi,
   PokemonAbility,
@@ -18,17 +15,17 @@ import {
   SpeciesDTO,
 } from '@features/pokemon/models/species.dto';
 import { PokemonService } from '@features/pokemon/services/pokemon.service';
-import {
-  PokemonAbilityResponse,
-  PokemonSpeciesInResponses,
-} from '@features/pokemon/types/api';
+import { PokemonAbilityResponse } from '@features/pokemon/types/api';
 import { AppPokemonSpeciesI } from '@features/pokemon/types/data';
 import {
-  extractEvolutionChainIdFromUrl,
   extractIdFromAbilityUrl,
   extractSpeciesFromChainResult,
 } from '@features/pokemon/utils/api';
-import { firstValueFrom, of, Subscription, switchMap } from 'rxjs';
+import { FamilyPartComponent } from '@features/pokemon/components/family-part/family-part.component';
+import { PokemonBodyComponent } from '@features/pokemon/components/pokemon-body/pokemon-body.component';
+import { PokemonCardSkeletonComponent } from '@features/pokemon/components/pokemon-card-skeleton/pokemon-card-skeleton.component';
+import { PokemonCardComponent } from '@features/pokemon/components/pokemon-card/pokemon-card.component';
+import { needsLoading, disableLoading } from '@features/pokemon/stores/loading';
 
 @Component({
   selector: 'app-pokemon',
@@ -45,10 +42,12 @@ export class PokemonComponent {
   private route: ActivatedRoute = inject(ActivatedRoute);
   private sub: Subscription | null = null;
   private pokemonService = inject(PokemonService);
+
   pokemon = signal<PokemonDTO | null>(null);
   species = signal<SpeciesDTO | null>(null);
   abilities = signal<PokemonAbility[]>([]);
   family = signal<AppPokemonSpeciesI[]>([]);
+
   familyIds = computed(() => {
     return this.family().map((species) => species.id);
   });
@@ -104,10 +103,17 @@ export class PokemonComponent {
           return this.pokemonService.getPokemonSpeciesById(pokemon.id);
         }),
       )
-      .subscribe((species) => {
-        // SetTimeout here to let the skeleton be visible
-        if (species)
-          setTimeout(() => this.species.set(mapSpeciesApiToDto(species)), 1200);
+      .subscribe((speciesResponse) => {
+        // SetTimeout here to let the skeleton be visible at least once
+        if (speciesResponse) {
+          const data = mapSpeciesApiToDto(speciesResponse);
+          if (needsLoading()) {
+            setTimeout(() => this.species.set(data), 1200);
+            disableLoading();
+          } else {
+            this.species.set(data);
+          }
+        }
       });
   }
 
