@@ -54,17 +54,22 @@
     </svg>
     <div class="flex flex-col select-none">
       <h1
+        id="french_name"
         class="text-4xl uppercase text-gray-700 text-shadow-slate-300 text-shadow-xs"
       >
-        {{ pokemon.name }}
+        {{ species.names["fr"] }}
       </h1>
       <h2
+        id="english_name"
         class="text-5xl text-gray-900 text-shadow-md delay-200 animate-fade-right animate-once text-shadow-gray-400"
         style="animation-delay: 0.3s"
       >
         / {{ pokemon.name | uppercase }}
       </h2>
-      <div class="flex gap-3 flex-wrap delay-200 animate-fade-right" style="animation-delay: 0.6s">
+      <div
+        class="flex gap-3 flex-wrap delay-200 animate-fade-right"
+        style="animation-delay: 0.6s"
+      >
         @for (pkmType of pokemon.types; track pkmType) {
           <app-type-item [pkmType]="pkmType" />
         }
