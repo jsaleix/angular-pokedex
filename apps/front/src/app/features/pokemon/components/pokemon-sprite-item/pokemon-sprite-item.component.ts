@@ -19,16 +19,13 @@ export class PokemonSpriteItemComponent {
   pokemonId = input.required<number>();
   data = signal<DataType | null>(null);
   lightMode = input(true);
-  
+
   pokemonDataService = inject(PokemonDataService);
   pokemonService = inject(PokemonService);
 
   async getPre8thGenUrl(id: number) {
     let res = this.pokemonDataService.getById(id);
-    if (res === null) {
-      this.data.set(null);
-      return null;
-    }
+    if (res === null) return null;
     const name = res.name['english'];
     const url = `https://raw.githubusercontent.com/msikma/pokesprite/master/pokemon-gen7x/regular/${name.toLowerCase()}.png`;
     return { name, url };

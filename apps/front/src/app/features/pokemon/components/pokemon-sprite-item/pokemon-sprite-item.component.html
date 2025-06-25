@@ -2,6 +2,7 @@
   class="h-[80px] max-w-[120px] flex flex-col overflow-hidden items-center"
 >
   <img
+    [alt]="data()?.name"
     [src]="data()?.url"
     class="w-full h-full object-contain -mt-[30px] select-none drag-none"
     onError="this.src='https://raw.githubusercontent.com/msikma/pokesprite/master/pokemon-gen7x/unknown-gen5.png'"

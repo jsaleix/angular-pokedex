@@ -4,9 +4,14 @@
   >
     <div class="z-1 h-30 w-30 flex justify-center items-center">
       @if (imgFailed()) {
-        <img src="assets/imgs/missing_sprite.png" class="object-contain w-full h-full drag-none" />
+        <img
+          alt="missing-no"
+          src="assets/imgs/missing_sprite.png"
+          class="object-contain w-full h-full drag-none"
+        />
       } @else {
         <img
+          [alt]="pokemon().name"
           (error)="this.imgFailed.set(true)"
           [src]="pkmImage()"
           class="object-contain w-full h-full drag-none"
