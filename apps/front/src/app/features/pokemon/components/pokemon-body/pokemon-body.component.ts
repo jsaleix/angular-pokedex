@@ -6,6 +6,7 @@ import { PokemonSpriteItemComponent } from '../pokemon-sprite-item/pokemon-sprit
 import { RouterModule } from '@angular/router';
 import { PokemonAbility } from '@features/pokemon/models/abilities.dto';
 import { AbilitiesPartComponent } from '../abilities-part/abilities-part.component';
+import { MAX_DEX_ID } from '@features/pokemon/constants';
 
 @Component({
   selector: 'app-pokemon-body',
@@ -22,4 +23,6 @@ export class PokemonBodyComponent {
   pokemon = input.required<PokemonDTO>();
   species = input.required<SpeciesDTO>();
   abilities = input.required<PokemonAbility[]>();
+
+  maxDexId = MAX_DEX_ID;
 }

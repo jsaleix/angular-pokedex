@@ -16,13 +16,15 @@
     } @else {
       <div></div>
     }
-    <a
-      [routerLink]="['/pokedex', pokemon.id + 1]"
-      class="flex flex-row w-fit items-center cursor-pointer gap-5 hover:opacity-70 duration-100"
-    >
-      <app-pokemon-sprite-item [pokemonId]="pokemon.id + 1" />
-      <p class="text-white select-none drag-none text-3xl">{{ ">" }}</p>
-    </a>
+    @if (pokemon.id < maxDexId) {
+      <a
+        [routerLink]="['/pokedex', pokemon.id + 1]"
+        class="flex flex-row w-fit items-center cursor-pointer gap-5 hover:opacity-70 duration-100"
+      >
+        <app-pokemon-sprite-item [pokemonId]="pokemon.id + 1" />
+        <p class="text-white select-none drag-none text-3xl">{{ ">" }}</p>
+      </a>
+    }
   </div>
   <section class="dimensions h-24 flex overflow-hidden select-none">
     <article
